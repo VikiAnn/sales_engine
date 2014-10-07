@@ -3,9 +3,9 @@
 
 ### Check-in Goals
 
-  1. Have each repository class setup with listing/searching features in place.
+  1. Have each repository class setup with listing/searching features in place, and all relationships established.
 
-(insert project completion goals for second check-in here)
+  2. (insert project completion goals for second check-in here)
 
 # Check-in Rubrics
 
