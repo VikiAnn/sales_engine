@@ -2,5 +2,6 @@ gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'time'
-require_relative '../lib/item'
-require_relative '../lib/item_repository'
+file_pattern = File.expand_path "../../lib/*.rb" , __FILE__
+
+Dir[file_pattern].each { |file| require file }
