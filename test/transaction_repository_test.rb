@@ -78,11 +78,11 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_by_can_return_empty
-    assert_nil repository.find_by_name("Jeff")
+    assert_nil repository.find_by_invoice_id("5")
   end
 
   def test_find_by_all_can_return_empty
-    assert_equal [], repository.find_all_by_name("Jeff")
+    assert_equal [], repository.find_all_by_invoice_id("5")
   end
 
   def test_it_can_return_all_transactions
