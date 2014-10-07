@@ -11,7 +11,7 @@ class ItemRepositoryTest < Minitest::Test
               :search_terms
 
   def setup
-    item_setup   
+    item_setup
 
     @repository = ItemRepository.new(items)
 
@@ -88,15 +88,15 @@ class ItemRepositoryTest < Minitest::Test
     assert_instance_of(Item, repository.random)
   end
 
-  [:id, :name, :description, :price, :merchant_id, :created_at, :updated_at].each do |attribute|
-    define_method("test_it_can_find_by_#{attribute}".to_sym) do 
-      assert_equal expected_find_by_values[attribute], repository.send("find_by_#{attribute}".to_sym, search_terms[attribute])
+  def test_it_can_find_by_any_attribute
+    [:id, :name, :description, :price, :merchant_id, :created_at, :updated_at].each do |attribute|
+      assert_equal expected_find_by_values[attribute], repository.send("find_by_#{attribute}", search_terms[attribute])
     end
   end
 
-  [:id, :name, :description, :price, :merchant_id, :created_at, :updated_at].each do |attribute|
-    define_method("test_it_can_find_all_by_#{attribute}".to_sym) do 
-      assert_equal expected_find_by_all_values[attribute], repository.send("find_all_by_#{attribute}".to_sym, search_terms[attribute])
+  def test_it_can_find_all_by_any_attribute
+    [:id, :name, :description, :price, :merchant_id, :created_at, :updated_at].each do |attribute|
+      assert_equal expected_find_by_all_values[attribute], repository.send("find_all_by_#{attribute}", search_terms[attribute])
     end
   end
 end

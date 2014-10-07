@@ -16,7 +16,7 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_an_id
-    assert_equal 1, item.id
+    assert_equal "1", item.id
   end
 
   def test_it_has_a_name
@@ -28,18 +28,18 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_a_price
-    assert_equal 150, item.price
+    assert_equal "150", item.price
   end
 
   def test_it_has_a_merchant_id
-    assert_equal 1, item.merchant_id
+    assert_equal "1", item.merchant_id
   end
 
   def test_it_has_a_created_at_time
-    assert_equal Time.parse("2012-03-27 14:53:59 UTC"), item.created_at
+    assert_equal "2012-03-27 14:53:59 utc", item.created_at
   end
 
   def test_it_has_an_updated_at_time
-    assert_equal Time.parse("2012-03-27 14:53:59 UTC"), item.updated_at
+    assert_equal "2012-03-27 14:53:59 utc", item.updated_at
   end
 end
