@@ -75,9 +75,17 @@ class ItemRepositoryTest < Minitest::Test
     @items = [item1, item2, item3 ]
   end
 
-  def test_a_new_it_is_empty
+  def test_it_is_empty_when_new
     other_repository = ItemRepository.new
     assert_empty(other_repository.all)
+  end
+
+  def test_find_by_can_return_empty
+    assert_nil repository.find_by_price("50")
+  end
+
+  def test_find_by_all_can_return_empty
+    assert_equal [], repository.find_all_by_price("50")
   end
 
   def test_it_can_return_all_items

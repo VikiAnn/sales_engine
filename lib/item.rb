@@ -16,4 +16,14 @@ class Item
     @created_at  = data[:created_at].to_s.downcase
     @updated_at  = data[:updated_at].to_s.downcase
   end
+
+  def attributes
+    [:id,
+     :name,
+     :description,
+     :price,
+     :merchant_id,
+     :created_at,
+     :updated_at]
+  end
 end
