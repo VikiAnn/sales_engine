@@ -6,9 +6,9 @@ class MerchantTest < Minitest::Test
 
   def setup
     data = { id:         "1",
-             name:       "Joe Bob Incorporated",
-             created_at: "2012-03-27 14:53:59 UTC",
-             updated_at: "2012-03-27 14:53:59 UTC" }
+             name:       "joe bob incorporated",
+             created_at: "2012-03-27 14:53:59 utc",
+             updated_at: "2012-03-27 14:53:59 utc" }
 
     @repository = Minitest::Mock.new
     @merchant  = Merchant.new(repository, data)

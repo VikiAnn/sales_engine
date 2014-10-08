@@ -19,9 +19,9 @@ class MerchantRepositoryTest < Minitest::Test
 
     @search_terms = {
       id: "1",
-      name: "Acme Corp",
-      created_at: "2012-03-27 14:53:59 UTC",
-      updated_at: "2012-03-27 14:53:59 UTC"
+      name: "acme corp",
+      created_at: "2012-03-27 14:53:59 utc",
+      updated_at: "2012-03-27 14:53:59 utc"
       }
 
     @expected_find_by_all_values = {
@@ -41,19 +41,19 @@ class MerchantRepositoryTest < Minitest::Test
 
   def merchant_setup
     merchant1_data = { id: "1",
-                       name: "Jeff's cookie shop",
-                       created_at: "2012-03-27 14:53:59 UTC",
-                       updated_at: "2012-03-27 14:53:59 UTC" }
+                       name: "jeff's cookie shop",
+                       created_at: "2012-03-27 14:53:59 utc",
+                       updated_at: "2012-03-27 14:53:59 utc" }
 
     merchant2_data = { id: "2",
-                       name: "Acme Corp",
-                       created_at: "2012-03-28 14:53:59 UTC",
-                       updated_at: "2012-03-28 14:53:59 UTC" }
+                       name: "acme corp",
+                       created_at: "2012-03-28 14:53:59 utc",
+                       updated_at: "2012-03-28 14:53:59 utc" }
 
     merchant3_data = { id: "3",
-                       name: "Turing School",
-                       created_at: "2012-03-27 14:53:59 UTC",
-                       updated_at: "2012-03-27 14:53:59 UTC" }
+                       name: "turing school",
+                       created_at: "2012-03-27 14:53:59 utc",
+                       updated_at: "2012-03-27 14:53:59 utc" }
 
     @merchant1 = Merchant.new(repository, merchant1_data)
     @merchant2 = Merchant.new(repository, merchant2_data)
