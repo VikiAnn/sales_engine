@@ -11,12 +11,12 @@ class Item
   def initialize(repository, data={})
     @repository  = repository
     @id          = data[:id]
-    @name        = data[:name].to_s.downcase
-    @description = data[:description].to_s.downcase
+    @name        = data[:name]
+    @description = data[:description]
     @price       = data[:price]
     @merchant_id = data[:merchant_id]
-    @created_at  = data[:created_at].to_s.downcase
-    @updated_at  = data[:updated_at].to_s.downcase
+    @created_at  = data[:created_at]
+    @updated_at  = data[:updated_at]
   end
 
   def attributes

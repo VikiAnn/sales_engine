@@ -10,8 +10,8 @@ class InvoiceItemTest < Minitest::Test
              invoice_id: "1",
              quantity:   "5",
              unit_price: "13635",
-             created_at: "2012-03-27 14:53:59 UTC",
-             updated_at: "2012-03-27 14:53:59 UTC" }
+             created_at: "2012-03-27 14:53:59 utc",
+             updated_at: "2012-03-27 14:53:59 utc" }
 
     @repository   = Minitest::Mock.new
     @invoice_item = InvoiceItem.new(repository, data)

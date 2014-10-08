@@ -23,8 +23,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
       invoice_id: "1",
       quantity: "8",
       unit_price: "13635",
-      created_at: "2012-03-27 14:53:59 UTC",
-      updated_at: "2012-03-27 14:53:59 UTC"
+      created_at: "2012-03-27 14:53:59 utc",
+      updated_at: "2012-03-27 14:53:59 utc"
       }
 
     @expected_find_by_all_values = {
@@ -54,24 +54,24 @@ class InvoiceItemRepositoryTest < Minitest::Test
              invoice_id: "1",
              quantity: "5",
              unit_price: "13635",
-             created_at: "2012-03-28 14:53:59 UTC",
-             updated_at: "2012-03-28 14:53:59 UTC"
+             created_at: "2012-03-28 14:53:59 utc",
+             updated_at: "2012-03-28 14:53:59 utc"
            }
     invoice_item2_data = { id: "2",
              item_id: "528",
              invoice_id: "1",
              quantity: "9",
              unit_price: "13635",
-             created_at: "2012-03-27 14:53:59 UTC",
-             updated_at: "2012-03-27 14:53:59 UTC"
+             created_at: "2012-03-27 14:53:59 utc",
+             updated_at: "2012-03-27 14:53:59 utc"
            }
     invoice_item3_data = { id: "3",
              item_id: "523",
              invoice_id: "1",
              quantity: "8",
              unit_price: "13630",
-             created_at: "2012-03-27 14:53:59 UTC",
-             updated_at: "2012-03-27 14:53:59 UTC"
+             created_at: "2012-03-27 14:53:59 utc",
+             updated_at: "2012-03-27 14:53:59 utc"
            }
 
     @invoice_item1 = InvoiceItem.new(repository, invoice_item1_data)
