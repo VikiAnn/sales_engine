@@ -9,12 +9,12 @@ class InvoiceRepositoryTest < Minitest::Test
               :expected_find_by_all_values,
               :expected_find_by_values,
               :search_terms,
-              :sales_engine
+              :engine
 
   def setup
     invoice_setup
-    @sales_engine = Minitest::Mock.new
-    @repository = InvoiceRepository.new(sales_engine, invoices)
+    @engine = Minitest::Mock.new
+    @repository = InvoiceRepository.new(engine, invoices)
 
     @search_terms = {
       id:          "1",
@@ -71,7 +71,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_is_empty_when_new
-    other_repository = InvoiceRepository.new(sales_engine)
+    other_repository = InvoiceRepository.new(engine)
     assert_empty(other_repository.all)
   end
 
@@ -104,8 +104,32 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_transaction
-    sales_engine.expect(:find_all_transactions_by_invoice_id, [], [invoice1.id])
+    engine.expect(:find_all_transactions_by_invoice_id, [], [invoice1.id])
     repository.find_transaction(invoice1.id)
-    sales_engine.verify
+    engine.verify
+  end
+
+  def test_it_can_find_by_invoice_items
+    engine.expect(:find_all_invoice_items_by_invoice_id, [], [invoice1.id])
+    repository.find_invoice_items(invoice1.id)
+    engine.verify
+  end
+
+  def test_it_can_find_items_by_invoice
+    engine.expect(:find_all_items_by_invoice_id, [], [invoice1.id])
+    repository.find_items_by_invoice_items(invoice1.id)
+    engine.verify
+  end
+
+  def test_it_can_find_the_customer_for_an_invoice
+    engine.expect(:find_by_customer, [], [invoice1.customer_id])
+    repository.find_by_customer(invoice1.customer_id)
+    engine.verify
+  end
+
+  def test_it_can_find_the_merchant_for_an_invoice
+    engine.expect(:find_by_merchant, [], [invoice1.merchant_id])
+    repository.find_by_merchant(invoice1.merchant_id)
+    engine.verify
   end
 end

@@ -55,6 +55,12 @@ class InvoiceTest < Minitest::Test
     repository.verify
   end
 
+  def test_it_delegates_items_to_repository
+    repository.expect(:find_items_by_invoice_items, [], [invoice.id])
+    invoice.items
+    repository.verify
+  end
+
   def test_it_delegates_merchant_to_its_repository
     repository.expect(:find_by_merchant, [], ["26"])
     invoice.merchant
