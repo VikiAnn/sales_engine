@@ -11,8 +11,8 @@ class InvoiceItemParser
 
   def create_invoice_item_objects(repository, invoice_item_data)
     @invoice_items = invoice_item_data.collect do |invoice_item_data|
-      invoice_item_data[:created_at] = invoice_item_data[:created_at].to_s.downcase
-      invoice_item_data[:updated_at] = invoice_item_data[:updated_at].to_s.downcase
+      invoice_item_data[:created_at] = invoice_item_data[:created_at]
+      invoice_item_data[:updated_at] = invoice_item_data[:updated_at]
       InvoiceItem.new(repository, invoice_item_data)
     end
   end

@@ -43,12 +43,12 @@ class SalesEngine
   end
 
   def import_data
-    @merchants     = MerchantParser.new("#{filepath}/merchants.csv")
-    @invoices      = InvoiceParser.new("#{filepath}/invoices.csv")
-    @items         = ItemParser.new("#{filepath}/items.csv")
-    @invoice_items = InvoiceItemParser.new("#{filepath}/invoice_items.csv")
-    @customers     = CustomerParser.new("#{filepath}/customers.csv")
-    @transactions  = TransactionParser.new("#{filepath}/transactions.csv")
+    @merchants     = MerchantParser.new(merchant_repository, "#{filepath}/merchants.csv").merchants
+    @invoices      = InvoiceParser.new(invoice_repository, "#{filepath}/invoices.csv").invoices
+    @items         = ItemParser.new(item_repository, "#{filepath}/items.csv").items
+    @invoice_items = InvoiceItemParser.new(invoice_item_repository, "#{filepath}/invoice_items.csv").invoice_items
+    @customers     = CustomerParser.new(customer_repository, "#{filepath}/customers.csv").customers
+    @transactions  = TransactionParser.new(transaction_repository, "#{filepath}/transactions.csv").transactions
   end
 
 end
