@@ -1,7 +1,8 @@
 require_relative 'test_helper'
 
 class ItemTest < Minitest::Test
-  attr_reader :item
+  attr_reader :item,
+              :repository
 
   def setup
     data = { id: "1",
@@ -12,7 +13,12 @@ class ItemTest < Minitest::Test
              created_at: "2012-03-27 14:53:59 UTC",
              updated_at: "2012-03-27 14:53:59 UTC" }
 
-    @item = Item.new(data)
+    @repository = Minitest::Mock.new
+    @item       = Item.new(repository, data)
+  end
+
+  def test_it_has_a_repository
+    assert item.repository
   end
 
   def test_it_has_an_id
@@ -41,5 +47,17 @@ class ItemTest < Minitest::Test
 
   def test_it_has_an_updated_at_time
     assert_equal "2012-03-27 14:53:59 utc", item.updated_at
+  end
+
+  def test_it_delegates_find_invoice_items_to_repository
+    repository.expect(:find_invoice_items, [], [item.id])
+    item.invoice_items
+    repository.verify
+  end
+
+  def test_it_delegates_find_merchant_to_repository
+    repository.expect(:find_merchant, [], [item.merchant_id])
+    item.merchant
+    repository.verify
   end
 end

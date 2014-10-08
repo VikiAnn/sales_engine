@@ -8,12 +8,14 @@ class ItemRepositoryTest < Minitest::Test
               :item3,
               :expected_find_by_all_values,
               :expected_find_by_values,
-              :search_terms
+              :search_terms,
+              :engine
 
   def setup
     item_setup
 
-    @repository = ItemRepository.new(items)
+    @engine     = Minitest::Mock.new
+    @repository = ItemRepository.new(engine, items)
 
     @search_terms = {
       id: "1",
@@ -68,15 +70,20 @@ class ItemRepositoryTest < Minitest::Test
              merchant_id: "2",
              created_at: "2012-03-27 14:53:59 UTC",
              updated_at: "2012-03-27 14:53:59 UTC" }
-    @item1 = Item.new(item1_data)
-    @item2 = Item.new(item2_data)
-    @item3 = Item.new(item3_data)
+
+    @item1 = Item.new(repository, item1_data)
+    @item2 = Item.new(repository, item2_data)
+    @item3 = Item.new(repository, item3_data)
 
     @items = [item1, item2, item3 ]
   end
 
+  def test_it_has_an_engine
+    assert repository.engine
+  end
+
   def test_it_is_empty_when_new
-    other_repository = ItemRepository.new
+    other_repository = ItemRepository.new(engine)
     assert_empty(other_repository.all)
   end
 
@@ -106,5 +113,17 @@ class ItemRepositoryTest < Minitest::Test
     [:id, :name, :description, :price, :merchant_id, :created_at, :updated_at].each do |attribute|
       assert_equal expected_find_by_all_values[attribute], repository.send("find_all_by_#{attribute}", search_terms[attribute])
     end
+  end
+
+  def test_it_delegates_find_invoice_items_to_engine
+    engine.expect(:find_invoice_items_by_item_id, [], [item1.id])
+    repository.find_invoice_items(item1.id)
+    engine.verify
+  end
+
+  def test_it_delegates_find_merchant_to_engine
+    engine.expect(:find_merchant_by_merchant_id, [], [item1.merchant_id])
+    repository.find_merchant(item1.merchant_id)
+    engine.verify
   end
 end
