@@ -22,8 +22,8 @@ class TransactionRepositoryTest < Minitest::Test
                       credit_card_number: "4654405418249632",
                       credit_card_expiration_date: "",
                       result: "success",
-                      created_at: "2012-03-27 14:53:59 UTC",
-                      updated_at: "2012-03-27 14:53:59 UTC" }
+                      created_at: "2012-03-27 14:53:59 utc",
+                      updated_at: "2012-03-27 14:53:59 utc" }
 
     @expected_find_by_all_values = { id: [transaction1],
                                      invoice_id: [transaction1],
@@ -48,24 +48,24 @@ class TransactionRepositoryTest < Minitest::Test
                           credit_card_number: "4654405418249632",
                           credit_card_expiration_date: "",
                           result: "success",
-                          created_at: "2012-03-27 14:53:59 UTC",
-                          updated_at: "2012-03-27 14:53:59 UTC" }
+                          created_at: "2012-03-27 14:53:59 utc",
+                          updated_at: "2012-03-27 14:53:59 utc" }
 
     transaction2_data = { id: "2",
                           invoice_id: "2",
                           credit_card_number: "4580251236515201",
                           credit_card_expiration_date: "",
                           result: "success",
-                          created_at: "2012-03-27 14:53:59 UTC",
-                          updated_at: "2012-03-27 14:53:59 UTC" }
+                          created_at: "2012-03-27 14:53:59 utc",
+                          updated_at: "2012-03-27 14:53:59 utc" }
 
     transaction3_data = { id: "3",
                           invoice_id: "4",
                           credit_card_number: "4354495077693036",
                           credit_card_expiration_date: "",
                           result: "success",
-                          created_at: "2012-03-27 14:54:00 UTC",
-                          updated_at: "2012-03-27 14:54:00 UTC" }
+                          created_at: "2012-03-27 14:54:00 utc",
+                          updated_at: "2012-03-27 14:54:00 utc" }
 
     @transaction1 = Transaction.new(repository, transaction1_data)
     @transaction2 = Transaction.new(repository, transaction2_data)
