@@ -8,9 +8,9 @@ class Merchant
   def initialize(repository, data={})
     @repository  = repository
     @id          = data[:id]
-    @name        = data[:name].to_s.downcase
-    @created_at  = data[:created_at].to_s.downcase
-    @updated_at  = data[:updated_at].to_s.downcase
+    @name        = data[:name]
+    @created_at  = data[:created_at]
+    @updated_at  = data[:updated_at]
   end
 
   def attributes
