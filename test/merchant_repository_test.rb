@@ -93,6 +93,12 @@ class MerchantRepositoryTest < Minitest::Test
     engine.verify
   end
 
+  def test_it_delegates_invoices_to_sales_engine
+    engine.expect(:find_invoices_from_merchant, [], [merchant1.id])
+    repository.find_invoices_from(merchant1.id)
+    engine.verify
+  end
+
   def test_it_can_find_by_any_attribute
     [:id, :name, :created_at, :updated_at].each do |attribute|
       assert_equal expected_find_by_values[attribute], repository.send("find_by_#{attribute}", search_terms[attribute])
