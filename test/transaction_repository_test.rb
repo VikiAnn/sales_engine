@@ -8,12 +8,14 @@ class TransactionRepositoryTest < Minitest::Test
               :transaction3,
               :expected_find_by_all_values,
               :expected_find_by_values,
-              :search_terms
+              :search_terms,
+              :engine
 
   def setup
     transaction_setup
 
-    @repository = TransactionRepository.new(transactions)
+    @engine     = Minitest::Mock.new
+    @repository = TransactionRepository.new(engine, transactions)
 
     @search_terms = { id: "1",
                       invoice_id: "1",
@@ -65,16 +67,20 @@ class TransactionRepositoryTest < Minitest::Test
                           created_at: "2012-03-27 14:54:00 UTC",
                           updated_at: "2012-03-27 14:54:00 UTC" }
 
-    @transaction1 = Transaction.new(transaction1_data)
-    @transaction2 = Transaction.new(transaction2_data)
-    @transaction3 = Transaction.new(transaction3_data)
+    @transaction1 = Transaction.new(repository, transaction1_data)
+    @transaction2 = Transaction.new(repository, transaction2_data)
+    @transaction3 = Transaction.new(repository, transaction3_data)
 
     @transactions = [transaction1, transaction2, transaction3 ]
   end
 
   def test_it_is_empty_when_new
-    other_repository = TransactionRepository.new
+    other_repository = TransactionRepository.new(engine)
     assert_empty(other_repository.all)
+  end
+
+  def test_it_has_an_engine
+    assert repository.engine
   end
 
   def test_find_by_can_return_empty
@@ -103,5 +109,11 @@ class TransactionRepositoryTest < Minitest::Test
     [:id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at].each do |attribute|
       assert_equal expected_find_by_all_values[attribute], repository.send("find_all_by_#{attribute}", search_terms[attribute])
     end
+  end
+
+  def test_it_delegates_find_invoice_to_engine
+    engine.expect(:find_invoice_by_invoice_id, [], [transaction1.invoice_id])
+    repository.find_invoice(transaction1.invoice_id)
+    engine.verify
   end
 end
