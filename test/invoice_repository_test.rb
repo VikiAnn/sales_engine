@@ -21,8 +21,8 @@ class InvoiceRepositoryTest < Minitest::Test
       customer_id: "1",
       merchant_id: "26",
       status:      "shipped",
-      created_at:  "2012-03-27 14:53:59 UTC",
-      updated_at:  "2012-03-27 14:53:59 UTC" }
+      created_at:  "2012-03-27 14:53:59 utc",
+      updated_at:  "2012-03-27 14:53:59 utc" }
 
     @expected_find_by_all_values = {
       id:          [invoice1],
@@ -46,22 +46,22 @@ class InvoiceRepositoryTest < Minitest::Test
              customer_id: "1",
              merchant_id: "26",
              status:      "shipped",
-             created_at:  "2012-03-27 14:53:59 UTC",
-             updated_at:  "2012-03-27 14:53:59 UTC" }
+             created_at:  "2012-03-27 14:53:59 utc",
+             updated_at:  "2012-03-27 14:53:59 utc" }
 
     invoice2_data = { id: "2",
              customer_id: "1",
              merchant_id: "26",
              status:      "delayed",
-             created_at:  "2012-03-28 14:53:59 UTC",
-             updated_at:  "2012-03-28 14:53:59 UTC" }
+             created_at:  "2012-03-28 14:53:59 utc",
+             updated_at:  "2012-03-28 14:53:59 utc" }
 
     invoice3_data = { id: "3",
              customer_id: "1",
              merchant_id: "28",
              status:      "shipped",
-             created_at:  "2012-03-27 14:53:59 UTC",
-             updated_at:  "2012-03-27 14:53:59 UTC" }
+             created_at:  "2012-03-27 14:53:59 utc",
+             updated_at:  "2012-03-27 14:53:59 utc" }
 
     @invoice1 = Invoice.new(repository, invoice1_data)
     @invoice2 = Invoice.new(repository, invoice2_data)

@@ -13,8 +13,8 @@ class Invoice
     @customer_id = data[:customer_id]
     @merchant_id = data[:merchant_id]
     @status      = data[:status]
-    @created_at  = data[:created_at].to_s.downcase
-    @updated_at  = data[:updated_at].to_s.downcase
+    @created_at  = data[:created_at]
+    @updated_at  = data[:updated_at]
   end
 
   def attributes
