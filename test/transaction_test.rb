@@ -1,7 +1,8 @@
 require_relative 'test_helper'
 
 class TransactionTest < Minitest::Test
-  attr_reader :transaction
+  attr_reader :transaction,
+              :repository
 
   def setup
     data = { id: "1",
@@ -12,7 +13,12 @@ class TransactionTest < Minitest::Test
              created_at: "2012-03-27 14:53:59 UTC",
              updated_at: "2012-03-27 14:53:59 UTC" }
 
-    @transaction = Transaction.new(data)
+    @repository  = Minitest::Mock.new
+    @transaction = Transaction.new(repository, data)
+  end
+
+  def test_it_has_a_repo
+    assert transaction.repository
   end
 
   def test_it_has_an_id
@@ -41,5 +47,11 @@ class TransactionTest < Minitest::Test
 
   def test_it_has_an_updated_at_time
     assert_equal "2012-03-27 14:53:59 utc", transaction.updated_at
+  end
+
+  def test_it_delegates_find_invoice_to_repository
+    repository.expect(:find_invoice, [], [transaction.invoice_id])
+    transaction.invoice
+    repository.verify
   end
 end
