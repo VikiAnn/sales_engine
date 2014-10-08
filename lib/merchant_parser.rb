@@ -12,8 +12,8 @@ class MerchantParser
     @merchants = merchant_data.collect do |merchant_data|
       merchant_data[:id] = merchant_data[:id]
       merchant_data[:name] = merchant_data[:name]
-      merchant_data[:created_at] = merchant_data[:created_at].to_s.downcase
-      merchant_data[:updated_at] = merchant_data[:updated_at].to_s.downcase
+      merchant_data[:created_at] = merchant_data[:created_at]
+      merchant_data[:updated_at] = merchant_data[:updated_at]
       Merchant.new(repository, merchant_data)
     end
   end

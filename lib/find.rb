@@ -4,7 +4,7 @@ module Find
     if collection.first
       collection.first.attributes.each do |attribute|
         define_method("find_by_#{attribute}") do |attribute_value|
-          collection.find { |object| object.send(attribute) == attribute_value.downcase }
+          collection.find { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
         end
       end
     end
@@ -14,7 +14,7 @@ module Find
     if collection.first
       collection.first.attributes.each do |attribute|
         define_method("find_all_by_#{attribute}") do |attribute_value|
-          collection.select { |object| object.send(attribute) == attribute_value.downcase }
+          collection.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
         end
       end
     end

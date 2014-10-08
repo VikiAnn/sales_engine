@@ -28,4 +28,8 @@ class MerchantRepository
   def find_invoices_from(id)
     engine.find_invoices_from_merchant(id)
   end
+
+  def inspect
+    "#<#{self.class} #{merchants.size} rows>"
+  end
 end
