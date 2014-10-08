@@ -5,9 +5,11 @@ class Item
               :price,
               :merchant_id,
               :created_at,
-              :updated_at
+              :updated_at,
+              :repository
 
-  def initialize(data={})
+  def initialize(repository, data={})
+    @repository  = repository
     @id          = data[:id]
     @name        = data[:name].to_s.downcase
     @description = data[:description].to_s.downcase
@@ -25,5 +27,13 @@ class Item
      :merchant_id,
      :created_at,
      :updated_at]
+  end
+
+  def invoice_items
+    repository.find_invoice_items(id)
+  end
+
+  def merchant
+    repository.find_merchant(merchant_id)
   end
 end

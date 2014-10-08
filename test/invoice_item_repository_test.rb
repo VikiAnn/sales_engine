@@ -8,12 +8,14 @@ class InvoiceItemRepositoryTest < Minitest::Test
               :invoice_item3,
               :expected_find_by_all_values,
               :expected_find_by_values,
-              :search_terms
+              :search_terms,
+              :engine
 
   def setup
     invoice_item_setup
 
-    @repository = InvoiceItemRepository.new(invoice_items)
+    @engine     = Minitest::Mock.new
+    @repository = InvoiceItemRepository.new(engine, invoice_items)
 
     @search_terms = {
       id: "1",
@@ -72,16 +74,20 @@ class InvoiceItemRepositoryTest < Minitest::Test
              updated_at: "2012-03-27 14:53:59 UTC"
            }
 
-    @invoice_item1 = InvoiceItem.new(invoice_item1_data)
-    @invoice_item2 = InvoiceItem.new(invoice_item2_data)
-    @invoice_item3 = InvoiceItem.new(invoice_item3_data)
+    @invoice_item1 = InvoiceItem.new(repository, invoice_item1_data)
+    @invoice_item2 = InvoiceItem.new(repository, invoice_item2_data)
+    @invoice_item3 = InvoiceItem.new(repository, invoice_item3_data)
 
     @invoice_items = [invoice_item1, invoice_item2, invoice_item3 ]
   end
 
   def test_it_is_empty_when_new
-    other_repository = InvoiceItemRepository.new
+    other_repository = InvoiceItemRepository.new(engine)
     assert_empty(other_repository.all)
+  end
+
+  def test_it_has_an_engine
+    assert repository.engine
   end
 
   def test_find_by_can_return_empty
@@ -110,5 +116,17 @@ class InvoiceItemRepositoryTest < Minitest::Test
     [:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at].each do |attribute|
       assert_equal expected_find_by_all_values[attribute], repository.send("find_all_by_#{attribute}", search_terms[attribute])
     end
+  end
+
+  def test_it_delegates_find_item_to_engine
+    engine.expect(:find_item_by_item_id, [], [invoice_item1.item_id])
+    repository.find_item(invoice_item1.item_id)
+    engine.verify
+  end
+
+  def test_it_delegates_find_invoice_to_engine
+    engine.expect(:find_invoice_by_invoice_id, [], [invoice_item1.invoice_id])
+    repository.find_invoice(invoice_item1.invoice_id)
+    engine.verify
   end
 end
