@@ -21,9 +21,11 @@ class InvoiceRepository
     invoices.sample
   end
 
+  def find_transaction(invoice_id)
+    engine.find_all_transactions_by_invoice_id(invoice_id)
+  end
+  
   def find_by_merchant(merchant_id)
     engine.find_by_merchant(merchant_id)
   end
-
-
 end

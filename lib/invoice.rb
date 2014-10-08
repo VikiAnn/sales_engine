@@ -26,6 +26,14 @@ class Invoice
      :updated_at]
   end
 
+  def transactions
+    repository.find_transactions(id)
+  end
+
+  def invoice_items
+    repository.find_invoice_items(id)
+  end
+
   def merchant
     repository.find_by_merchant(merchant_id)
   end
