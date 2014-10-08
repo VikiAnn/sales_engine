@@ -10,6 +10,13 @@ class SalesEngine
 
   def initialize(filepath="../data")
     @filepath = filepath
+    @merchant_repository      = MerchantRepository.new(self)
+    @invoice_repository       = InvoiceRepository.new(self)
+    @item_repository          = ItemRepository.new(self)
+    @invoice_item_repository  = InvoiceItemRepository.new(self)
+    @customer_repository      = CustomerRepository.new(self)
+    @transaction_repository   = TransactionRepository.new(self)
+
     import_data
   end
 
