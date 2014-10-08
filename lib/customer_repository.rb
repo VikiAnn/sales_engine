@@ -23,4 +23,8 @@ class CustomerRepository
   def find_invoices(customer_id)
     engine.find_all_invoices_by_customer_id(customer_id)
   end
+
+  def inspect
+    "#<#{self.class} #{customers.size} rows>"
+  end
 end
