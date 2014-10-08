@@ -6,12 +6,12 @@ class ItemTest < Minitest::Test
 
   def setup
     data = { id: "1",
-             name: "Soap",
-             description: "Minty fresh",
+             name: "soap",
+             description: "minty fresh",
              price: "150",
              merchant_id: "1",
-             created_at: "2012-03-27 14:53:59 UTC",
-             updated_at: "2012-03-27 14:53:59 UTC" }
+             created_at: "2012-03-27 14:53:59 utc",
+             updated_at: "2012-03-27 14:53:59 utc" }
 
     @repository = Minitest::Mock.new
     @item       = Item.new(repository, data)

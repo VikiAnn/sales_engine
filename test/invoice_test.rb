@@ -9,8 +9,8 @@ class InvoiceTest < Minitest::Test
              customer_id: "1",
              merchant_id: "26",
              status:      "shipped",
-             created_at:  "2012-03-27 14:53:59 UTC",
-             updated_at:  "2012-03-27 14:53:59 UTC" }
+             created_at:  "2012-03-27 14:53:59 utc",
+             updated_at:  "2012-03-27 14:53:59 utc" }
     @repository = Minitest::Mock.new
     @invoice    = Invoice.new(repository, data)
   end
@@ -32,11 +32,11 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_has_a_created_at_time
-    assert_equal "2012-03-27 14:53:59 UTC", invoice.created_at
+    assert_equal "2012-03-27 14:53:59 utc", invoice.created_at
   end
 
   def test_it_has_an_updated_at_time
-    assert_equal "2012-03-27 14:53:59 UTC", invoice.updated_at
+    assert_equal "2012-03-27 14:53:59 utc", invoice.updated_at
   end
 
   def test_it_has_a_repository

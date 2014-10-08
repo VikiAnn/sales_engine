@@ -15,8 +15,8 @@ class InvoiceItem
     @invoice_id = data[:invoice_id]
     @quantity   = data[:quantity]
     @unit_price = data[:unit_price]
-    @created_at = data[:created_at].to_s.downcase
-    @updated_at = data[:updated_at].to_s.downcase
+    @created_at = data[:created_at]
+    @updated_at = data[:updated_at]
   end
 
   def attributes

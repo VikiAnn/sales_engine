@@ -19,12 +19,12 @@ class ItemRepositoryTest < Minitest::Test
 
     @search_terms = {
       id: "1",
-      name: "Soap",
-      description: "Minty fresh",
+      name: "soap",
+      description: "minty fresh",
       price: "300",
       merchant_id: "1",
-      created_at: "2012-03-27 14:53:59 UTC",
-      updated_at: "2012-03-27 14:53:59 UTC"
+      created_at: "2012-03-27 14:53:59 utc",
+      updated_at: "2012-03-27 14:53:59 utc"
       }
 
     @expected_find_by_all_values = {
@@ -50,26 +50,26 @@ class ItemRepositoryTest < Minitest::Test
 
   def item_setup
     item1_data = { id: "1",
-             name: "Soap",
-             description: "Minty fresh",
+             name: "soap",
+             description: "minty fresh",
              price: "150",
              merchant_id: "1",
-             created_at: "2012-03-27 14:53:59 UTC",
-             updated_at: "2012-03-27 14:53:59 UTC" }
+             created_at: "2012-03-27 14:53:59 utc",
+             updated_at: "2012-03-27 14:53:59 utc" }
     item2_data = { id: "2",
              name: "Toothpaste",
              description: "Not actually minty",
              price: "300",
              merchant_id: "1",
-             created_at: "2012-03-28 14:53:59 UTC",
-             updated_at: "2012-03-28 14:53:59 UTC" }
+             created_at: "2012-03-28 14:53:59 utc",
+             updated_at: "2012-03-28 14:53:59 utc" }
     item3_data = { id: "3",
              name: "Toothpaste",
-             description: "Minty Fresh",
+             description: "minty fresh",
              price: "300",
              merchant_id: "2",
-             created_at: "2012-03-27 14:53:59 UTC",
-             updated_at: "2012-03-27 14:53:59 UTC" }
+             created_at: "2012-03-27 14:53:59 utc",
+             updated_at: "2012-03-27 14:53:59 utc" }
 
     @item1 = Item.new(repository, item1_data)
     @item2 = Item.new(repository, item2_data)
