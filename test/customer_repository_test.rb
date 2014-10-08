@@ -20,10 +20,10 @@ class CustomerRepositoryTest < Minitest::Test
 
     @search_terms = {
       id: "1",
-      first_name: "Bob",
-      last_name: "Huckenberry",
-      created_at: "2012-03-28 14:53:59 UTC",
-      updated_at: "2012-03-27 14:53:59 UTC"
+      first_name: "bob",
+      last_name: "huckenberry",
+      created_at: "2012-03-28 14:53:59 utc",
+      updated_at: "2012-03-27 14:53:59 utc"
       }
 
     @expected_find_by_all_values = {
@@ -45,22 +45,22 @@ class CustomerRepositoryTest < Minitest::Test
 
   def customer_setup
     customer1_data = { id: "1",
-                       first_name: "Joe",
-                       last_name: "Smith",
-                       created_at: "2012-03-28 14:53:59 UTC",
-                       updated_at: "2012-03-28 14:53:59 UTC" }
+                       first_name: "joe",
+                       last_name: "smith",
+                       created_at: "2012-03-28 14:53:59 utc",
+                       updated_at: "2012-03-28 14:53:59 utc" }
 
     customer2_data = { id: "2",
-                       first_name: "Bob",
-                       last_name: "Janeway",
-                       created_at: "2012-03-28 14:53:59 UTC",
-                       updated_at: "2012-03-28 14:53:59 UTC" }
+                       first_name: "bob",
+                       last_name: "janeway",
+                       created_at: "2012-03-28 14:53:59 utc",
+                       updated_at: "2012-03-28 14:53:59 utc" }
 
     customer3_data = { id: "3",
-                       first_name: "Jane",
-                       last_name: "Huckenberry",
-                       created_at: "2012-03-27 14:53:59 UTC",
-                       updated_at: "2012-03-27 14:53:59 UTC" }
+                       first_name: "jane",
+                       last_name: "huckenberry",
+                       created_at: "2012-03-27 14:53:59 utc",
+                       updated_at: "2012-03-27 14:53:59 utc" }
 
     @customer1 = Customer.new(repository, customer1_data)
     @customer2 = Customer.new(repository, customer2_data)
