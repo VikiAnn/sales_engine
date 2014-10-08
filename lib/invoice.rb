@@ -4,9 +4,11 @@ class Invoice
               :merchant_id,
               :status,
               :created_at,
-              :updated_at
+              :updated_at,
+              :repository
 
-  def initialize(data={})
+  def initialize(repository, data={})
+    @repository  = repository
     @id          = data[:id]
     @customer_id = data[:customer_id]
     @merchant_id = data[:merchant_id]
@@ -22,5 +24,21 @@ class Invoice
      :status,
      :created_at,
      :updated_at]
+  end
+
+  def transactions
+    repository.find_transactions(id)
+  end
+
+  def invoice_items
+    repository.find_invoice_items(id)
+  end
+
+  def merchant
+    repository.find_by_merchant(merchant_id)
+  end
+
+  def customer
+    repository.find_by_customer(customer_id)
   end
 end

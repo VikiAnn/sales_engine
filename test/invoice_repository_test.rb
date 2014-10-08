@@ -8,12 +8,13 @@ class InvoiceRepositoryTest < Minitest::Test
               :invoice3,
               :expected_find_by_all_values,
               :expected_find_by_values,
-              :search_terms
+              :search_terms,
+              :sales_engine
 
   def setup
     invoice_setup
-
-    @repository = InvoiceRepository.new(invoices)
+    @sales_engine = Minitest::Mock.new
+    @repository = InvoiceRepository.new(sales_engine, invoices)
 
     @search_terms = {
       id:          "1",
@@ -62,15 +63,15 @@ class InvoiceRepositoryTest < Minitest::Test
              created_at:  "2012-03-27 14:53:59 UTC",
              updated_at:  "2012-03-27 14:53:59 UTC" }
 
-    @invoice1 = Invoice.new(invoice1_data)
-    @invoice2 = Invoice.new(invoice2_data)
-    @invoice3 = Invoice.new(invoice3_data)
+    @invoice1 = Invoice.new(repository, invoice1_data)
+    @invoice2 = Invoice.new(repository, invoice2_data)
+    @invoice3 = Invoice.new(repository, invoice3_data)
 
     @invoices = [invoice1, invoice2, invoice3 ]
   end
 
   def test_it_is_empty_when_new
-    other_repository = InvoiceRepository.new
+    other_repository = InvoiceRepository.new(sales_engine)
     assert_empty(other_repository.all)
   end
 
@@ -100,5 +101,11 @@ class InvoiceRepositoryTest < Minitest::Test
     [:id, :customer_id, :merchant_id, :status, :created_at, :updated_at].each do |attribute|
       assert_equal expected_find_by_all_values[attribute], repository.send("find_all_by_#{attribute}", search_terms[attribute])
     end
+  end
+
+  def test_it_can_find_by_transaction
+    sales_engine.expect(:find_all_transactions_by_invoice_id, [], [invoice1.id])
+    repository.find_transaction(invoice1.id)
+    sales_engine.verify
   end
 end

@@ -3,8 +3,11 @@ require_relative 'find'
 class MerchantRepository
   include Find
 
-  attr_reader :merchants
-  def initialize(merchants = [])
+  attr_reader :merchants,
+              :engine
+
+  def initialize(engine, merchants = [])
+    @engine    = engine
     @merchants = merchants
     Find.find_by_generator(merchants)
     Find.find_all_by_generator(merchants)
@@ -18,4 +21,11 @@ class MerchantRepository
     merchants.sample
   end
 
+  def find_items_from(id)
+    engine.find_items_from_merchant(id)
+  end
+
+  def find_invoices_from(id)
+    engine.find_invoices_from_merchant(id)
+  end
 end

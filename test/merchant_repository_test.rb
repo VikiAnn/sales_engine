@@ -8,12 +8,14 @@ class MerchantRepositoryTest < Minitest::Test
               :merchant3,
               :expected_find_by_all_values,
               :expected_find_by_values,
-              :search_terms
+              :search_terms,
+              :engine
 
   def setup
     merchant_setup
 
-    @repository = MerchantRepository.new(merchants)
+    @engine     = Minitest::Mock.new
+    @repository = MerchantRepository.new(engine, merchants)
 
     @search_terms = {
       id: "1",
@@ -53,15 +55,15 @@ class MerchantRepositoryTest < Minitest::Test
                        created_at: "2012-03-27 14:53:59 UTC",
                        updated_at: "2012-03-27 14:53:59 UTC" }
 
-    @merchant1 = Merchant.new(merchant1_data)
-    @merchant2 = Merchant.new(merchant2_data)
-    @merchant3 = Merchant.new(merchant3_data)
+    @merchant1 = Merchant.new(repository, merchant1_data)
+    @merchant2 = Merchant.new(repository, merchant2_data)
+    @merchant3 = Merchant.new(repository, merchant3_data)
 
     @merchants = [merchant1, merchant2, merchant3 ]
   end
 
   def test_it_is_empty_when_new
-    other_repository = MerchantRepository.new
+    other_repository = MerchantRepository.new(engine)
     assert_empty(other_repository.all)
   end
 
@@ -79,6 +81,22 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_has_a_random_method_which_returns_an_merchant
     assert_instance_of(Merchant, repository.random)
+  end
+
+  def test_it_has_a_sales_engine
+    assert repository.engine
+  end
+
+  def test_it_delegates_items_to_sales_engine
+    engine.expect(:find_items_from_merchant, [], ["1"])
+    repository.find_items_from("1")
+    engine.verify
+  end
+
+  def test_it_delegates_invoices_to_sales_engine
+    engine.expect(:find_invoices_from_merchant, [], [merchant1.id])
+    repository.find_invoices_from(merchant1.id)
+    engine.verify
   end
 
   def test_it_can_find_by_any_attribute
