@@ -5,10 +5,10 @@ class CustomerTest < Minitest::Test
 
   def setup
     data = { id: "1",
-             first_name: "Billy",
-             last_name: "Joe",
-             created_at: "2012-03-27 14:53:59 UTC",
-             updated_at: "2012-03-27 14:53:59 UTC" }
+             first_name: "billy",
+             last_name: "joe",
+             created_at: "2012-03-27 14:53:59 utc",
+             updated_at: "2012-03-27 14:53:59 utc" }
 
     @repository = Minitest::Mock.new
     @customer = Customer.new(repository, data)
