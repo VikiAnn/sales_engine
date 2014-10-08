@@ -10,8 +10,8 @@ class TransactionTest < Minitest::Test
              credit_card_number: "4654405418249632",
              credit_card_expiration_date: "",
              result: "success",
-             created_at: "2012-03-27 14:53:59 UTC",
-             updated_at: "2012-03-27 14:53:59 UTC" }
+             created_at: "2012-03-27 14:53:59 utc",
+             updated_at: "2012-03-27 14:53:59 utc" }
 
     @repository  = Minitest::Mock.new
     @transaction = Transaction.new(repository, data)
