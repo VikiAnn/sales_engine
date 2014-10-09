@@ -35,6 +35,12 @@ class MerchantRepository
     engine.find_invoices_from_merchant(id)
   end
 
+# take invoices from merchant_id (find_invoices_from) and return quantity*unit_price
+# merchants should each know their total revenue
+  def most_revenue(number_of_instances)
+
+  end
+
   def inspect
     "#<#{self.class} #{merchants.size} rows>"
   end

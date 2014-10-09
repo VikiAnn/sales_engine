@@ -36,4 +36,11 @@ class Invoice
   def customer
     repository.find_by_customer(customer_id)
   end
+
+  def total
+    totals = invoice_items.map do |invoice_item|
+      invoice_item.unit_price.to_i * invoice_item.quantity.to_i
+    end
+    totals.reduce(:+)
+  end
 end

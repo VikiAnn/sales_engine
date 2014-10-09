@@ -1,6 +1,6 @@
 class InvoiceRepository
-  attr_reader :invoices,
-              :engine
+  attr_reader :engine,
+              :invoices
 
   def initialize(engine, invoices = [])
     @engine   = engine
