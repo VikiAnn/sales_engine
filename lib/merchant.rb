@@ -25,4 +25,9 @@ class Merchant
     totals = invoices.map {|invoice| invoice.total}
     totals.empty? ? 0 : totals.reduce(:+)
   end
+
+  def total_items_sold
+    totals = items.map { |item| item.invoice_items.count }
+    totals.empty? ? 0 : totals.reduce(:+)
+  end
 end

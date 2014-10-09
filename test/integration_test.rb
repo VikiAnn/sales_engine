@@ -103,7 +103,7 @@ class IntegrationTest < Minitest::Test
 
   def test_merchant_total_revenue
     merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
-    assert_equal 560568, merchant.total_revenue
+    assert_equal 560568, merchant.revenue
   end
 
   def test_business_intelligence_for_merchant_repository_most_revenue_x
@@ -111,5 +111,17 @@ class IntegrationTest < Minitest::Test
     top = merchants.most_revenue(2)
     assert_equal 2, top.count
     assert_equal "Williamson Group", top.first.name
+  end
+
+  def test_merchant_total_items_sold
+    merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
+    assert_equal 9, merchant.total_items_sold
+  end
+
+  def test_business_intelligence_for_merchant_repository_most_items_x
+    merchants = engine.merchant_repository
+    top = merchants.most_items(2)
+    assert_equal 2, top.count
+    assert_equal "Schroeder-Jerde", top.first.name
   end
 end

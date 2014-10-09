@@ -27,9 +27,14 @@ class MerchantRepository
     merchants.sample
   end
 
-  def most_revenue(number_of_instances)
+  def most_revenue(number_of_results)
     top = merchants.sort_by {|merchant| merchant.revenue }.reverse
-    top[0..number_of_instances-1]
+    top[0..number_of_results-1]
+  end
+
+  def most_items(number_of_results)
+    top = merchants.sort_by {|merchant| merchant.total_items_sold }.reverse
+    top[0..number_of_results-1]
   end
 
   def find_items_from(id)
