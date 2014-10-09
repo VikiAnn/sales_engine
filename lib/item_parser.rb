@@ -11,10 +11,6 @@ class ItemParser
 
   def create_item_objects(repository, item_data)
     @items = item_data.collect do |item_data|
-      item_data[:name]        = item_data[:name]
-      item_data[:description] = item_data[:description]
-      item_data[:created_at]  = item_data[:created_at]
-      item_data[:updated_at]  = item_data[:updated_at]
       Item.new(repository, item_data)
     end
   end

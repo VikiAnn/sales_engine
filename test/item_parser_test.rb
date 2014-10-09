@@ -14,7 +14,7 @@ class ItemParserTest < Minitest::Test
   end
 
   def test_it_returns_correct_number_of_items
-    assert_equal 5, item_parser.items.count
+    assert_equal 9, item_parser.items.count
   end
 
   def test_items_are_valid_item_objects

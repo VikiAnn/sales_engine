@@ -11,11 +11,6 @@ class CustomerParser
 
   def create_customer_objects(repository, customer_data)
     @customers = customer_data.collect do |customer_data|
-      customer_data[:id]          = customer_data[:id]
-      customer_data[:first_name]  = customer_data[:first_name]
-      customer_data[:last_name]   = customer_data[:last_name]
-      customer_data[:created_at]  = customer_data[:created_at]
-      customer_data[:updated_at]  = customer_data[:updated_at]
       Customer.new(repository, customer_data)
     end
   end

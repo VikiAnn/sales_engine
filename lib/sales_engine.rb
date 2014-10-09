@@ -51,4 +51,50 @@ class SalesEngine
     @transactions  = TransactionParser.new(transaction_repository, "#{filepath}/transactions.csv").transactions
   end
 
+  def find_items_from_merchant(id)
+    item_repository.find_all_by_merchant_id(id)
+  end
+
+  def find_invoices_from_merchant(id)
+    invoice_repository.find_all_by_merchant_id(id)
+  end
+
+  def find_all_transactions_by_invoice_id(id)
+    transaction_repository.find_all_by_invoice_id(id)
+  end
+
+  def find_all_invoice_items_by_invoice_id(id)
+    invoice_item_repository.find_all_by_invoice_id(id)
+  end
+
+  def find_all_items_by_invoice_id(id)
+    item_ids = find_all_invoice_items_by_invoice_id(id).collect {|invoice_item| invoice_item.item_id }
+    items = item_ids.collect do |item_id|
+      item_repository.find_by_id(item_id)
+    end
+  end
+
+  def find_by_customer(id)
+    customer_repository.find_by_id(id)
+  end
+
+  def find_by_merchant(id)
+    merchant_repository.find_by_id(id)
+  end
+
+  def find_invoice_by_invoice_id(invoice_id)
+    invoice_repository.find_by_id(invoice_id)
+  end
+
+  def find_item_by_item_id(item_id)
+    item_repository.find_by_id(item_id)
+  end
+
+  def find_invoice_items_by_item_id(item_id)
+    invoice_item_repository.find_all_by_item_id(item_id)
+  end
+
+  def find_all_invoices_by_customer_id(customer_id)
+    invoice_repository.find_all_by_customer_id(customer_id)
+  end
 end
