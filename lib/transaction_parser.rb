@@ -11,6 +11,7 @@ class TransactionParser
 
   def create_transaction_objects(repository, transaction_data)
     @transactions = transaction_data.collect do |transaction_data|
+      transaction_data[:id] = transaction_data[:id].to_i
       Transaction.new(repository, transaction_data)
     end
   end

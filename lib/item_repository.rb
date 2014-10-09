@@ -7,16 +7,21 @@ class ItemRepository
     @items  = items
   end
 
-  [:id, :name, :description, :price, :merchant_id, :created_at, :updated_at].each do |attribute|
+  [:id, :name, :description, :merchant_id, :created_at, :updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
       items.find { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
     end
-  end
 
-  [:id, :name, :description, :price, :merchant_id, :created_at, :updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |attribute_value|
       items.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
     end
+  end
+
+  def find_by_unit_price(price)
+    items.find { |item| BigDecimal.new(item.unit_price) == (BigDecimal.new(price) * 100)  }
+  end
+
+  def find_all_by_unit_price
   end
 
   def all

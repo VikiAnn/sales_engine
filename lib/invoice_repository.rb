@@ -11,9 +11,7 @@ class InvoiceRepository
     define_method("find_by_#{attribute}") do |attribute_value|
       invoices.find { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
     end
-  end
 
-  [:id, :customer_id, :merchant_id, :status, :created_at, :updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |attribute_value|
       invoices.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
     end

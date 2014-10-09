@@ -15,14 +15,6 @@ class Customer
     @updated_at  = data[:updated_at]
   end
 
-  def attributes
-    [:id,
-     :first_name,
-     :last_name,
-     :created_at,
-     :updated_at]
-  end
-
   def invoices
     repository.find_invoices(id)
   end

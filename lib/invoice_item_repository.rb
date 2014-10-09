@@ -1,6 +1,6 @@
 class InvoiceItemRepository
   attr_reader :invoice_items,
-              :engine
+  :engine
 
   def initialize(engine, invoice_items = [])
     @engine        = engine
@@ -8,17 +8,15 @@ class InvoiceItemRepository
   end
 
   [:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at].each do |attribute|
-      define_method("find_by_#{attribute}") do |attribute_value|
-        invoice_items.find { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
-      end
+    define_method("find_by_#{attribute}") do |attribute_value|
+      invoice_items.find { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
     end
 
-  [:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |attribute_value|
       invoice_items.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
     end
   end
-
+  
   def all
     invoice_items
   end

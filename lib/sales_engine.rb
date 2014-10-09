@@ -34,7 +34,7 @@ class SalesEngine
   end
 
   def startup
-    @merchant_repository      = MerchantRepository.new(self, merchants)
+    @merchant_repository.build(merchants)
     @invoice_repository       = InvoiceRepository.new(self, invoices)
     @item_repository          = ItemRepository.new(self, items)
     @invoice_item_repository  = InvoiceItemRepository.new(self, invoice_items)
@@ -43,12 +43,13 @@ class SalesEngine
   end
 
   def import_data
-    @merchants     = MerchantParser.new(merchant_repository, "#{filepath}/merchants.csv").merchants
-    @invoices      = InvoiceParser.new(invoice_repository, "#{filepath}/invoices.csv").invoices
-    @items         = ItemParser.new(item_repository, "#{filepath}/items.csv").items
-    @invoice_items = InvoiceItemParser.new(invoice_item_repository, "#{filepath}/invoice_items.csv").invoice_items
-    @customers     = CustomerParser.new(customer_repository, "#{filepath}/customers.csv").customers
-    @transactions  = TransactionParser.new(transaction_repository, "#{filepath}/transactions.csv").transactions
+    @merchants     = MerchantParser.new(merchant_repository, "#{filepath}/merchants.csv")
+    @invoices      = InvoiceParser.new(invoice_repository, "#{filepath}/invoices.csv")
+    @items         = ItemParser.new(item_repository, "#{filepath}/items.csv")
+    # invoice items has been changed -- change the rest of the parsers
+    @invoice_items = InvoiceItemParser.new(invoice_item_repository, "#{filepath}/invoice_items.csv")
+    @customers     = CustomerParser.new(customer_repository, "#{filepath}/customers.csv")
+    @transactions  = TransactionParser.new(transaction_repository, "#{filepath}/transactions.csv")
   end
 
   def find_items_from_merchant(id)
@@ -69,7 +70,7 @@ class SalesEngine
 
   def find_all_items_by_invoice_id(id)
     item_ids = find_all_invoice_items_by_invoice_id(id).collect {|invoice_item| invoice_item.item_id }
-    items = item_ids.collect do |item_id|
+    item_ids.collect do |item_id|
       item_repository.find_by_id(item_id)
     end
   end
