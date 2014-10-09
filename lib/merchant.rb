@@ -23,6 +23,6 @@ class Merchant
 
   def total_revenue
     totals = invoices.map {|invoice| invoice.total}
-    totals.reduce(:+)
+    totals.empty? ? 0 : totals.reduce(:+)
   end
 end

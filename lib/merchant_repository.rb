@@ -27,18 +27,17 @@ class MerchantRepository
     merchants.sample
   end
 
+  def most_revenue(number_of_instances)
+    top = merchants.sort_by {|merchant| merchant.total_revenue }.reverse
+    top[0..number_of_instances-1]
+  end
+
   def find_items_from(id)
     engine.find_items_from_merchant(id)
   end
 
   def find_invoices_from(id)
     engine.find_invoices_from_merchant(id)
-  end
-
-# take invoices from merchant_id (find_invoices_from) and return quantity*unit_price
-# merchants should each know their total revenue
-  def most_revenue(number_of_instances)
-
   end
 
   def inspect

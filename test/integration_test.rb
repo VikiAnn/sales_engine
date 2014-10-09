@@ -102,9 +102,14 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_merchant_total_revenue
-    invoice = engine.invoice_repository.find_by_id("1")
-    invoice_items = invoice.invoice_items
     merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
     assert_equal 560568, merchant.total_revenue
+  end
+
+  def test_business_intelligence_for_merchant_repository_most_revenue_x
+    merchants = engine.merchant_repository
+    top = merchants.most_revenue(2)
+    assert_equal 2, top.count
+    assert_equal "Williamson Group", top.first.name
   end
 end
