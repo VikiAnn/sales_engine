@@ -41,6 +41,6 @@ class Invoice
     totals = invoice_items.map do |invoice_item|
       invoice_item.unit_price.to_i * invoice_item.quantity.to_i
     end
-    totals.reduce(:+)
+    totals.empty? ? 0 : totals.reduce(:+)
   end
 end

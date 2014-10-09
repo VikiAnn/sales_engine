@@ -124,4 +124,14 @@ class IntegrationTest < Minitest::Test
     assert_equal 2, top.count
     assert_equal "Schroeder-Jerde", top.first.name
   end
+
+  def test_merchant_total_revenue_by_date
+    merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
+    assert_equal 553980, merchant.revenue(Date.new(2012, 3, 8))
+    assert_equal 6588, merchant.revenue(Date.new(2012, 3, 7))
+  end
+
+  def test_business_intelligence_for_merchant_repository_revenue_date
+
+  end
 end

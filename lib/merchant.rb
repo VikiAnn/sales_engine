@@ -1,3 +1,4 @@
+require 'date'
 class Merchant
   attr_reader :id,
               :name,
@@ -21,8 +22,13 @@ class Merchant
     repository.find_invoices_from(id)
   end
 
-  def revenue
-    totals = invoices.map {|invoice| invoice.total}
+  def revenue(date="total")
+    if date == "total"
+      totals = invoices.map {|invoice| invoice.total}
+    else
+      daily_invoices = invoices.select {|invoice| Time.parse(invoice.created_at).to_date == date}
+      totals = daily_invoices.map {|invoice| invoice.total}
+    end
     totals.empty? ? 0 : totals.reduce(:+)
   end
 
