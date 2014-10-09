@@ -14,7 +14,7 @@ class InvoiceParserTest < Minitest::Test
   end
 
   def test_it_returns_correct_number_of_invoices
-    assert_equal 5, invoice_parser.invoices.count
+    assert_equal 7, invoice_parser.invoices.count
   end
 
   def test_invoices_are_valid_invoice_objects

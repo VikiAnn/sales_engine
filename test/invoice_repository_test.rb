@@ -105,7 +105,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_by_transaction
     engine.expect(:find_all_transactions_by_invoice_id, [], [invoice1.id])
-    repository.find_transaction(invoice1.id)
+    repository.find_transactions(invoice1.id)
     engine.verify
   end
 

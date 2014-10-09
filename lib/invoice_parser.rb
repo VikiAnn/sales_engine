@@ -11,12 +11,6 @@ class InvoiceParser
 
   def create_invoice_objects(repository, invoice_data)
     @invoices = invoice_data.collect do |invoice_data|
-      invoice_data[:id]          = invoice_data[:id]
-      invoice_data[:customer_id] = invoice_data[:customer_id]
-      invoice_data[:merchant_id] = invoice_data[:merchant_id]
-      invoice_data[:status]      = invoice_data[:status]
-      invoice_data[:created_at]  = invoice_data[:created_at]
-      invoice_data[:updated_at]  = invoice_data[:updated_at]
       Invoice.new(repository, invoice_data)
     end
   end

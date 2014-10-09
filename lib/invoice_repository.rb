@@ -27,7 +27,7 @@ class InvoiceRepository
     invoices.sample
   end
 
-  def find_transaction(invoice_id)
+  def find_transactions(invoice_id)
     engine.find_all_transactions_by_invoice_id(invoice_id)
   end
 
