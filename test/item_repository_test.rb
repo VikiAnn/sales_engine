@@ -21,7 +21,7 @@ class ItemRepositoryTest < Minitest::Test
       id: "1",
       name: "soap",
       description: "minty fresh",
-      price: "300",
+      unit_price: "300",
       merchant_id: "1",
       created_at: "2012-03-27 14:53:59 utc",
       updated_at: "2012-03-27 14:53:59 utc"
@@ -31,7 +31,7 @@ class ItemRepositoryTest < Minitest::Test
       id: [item1],
       name: [item1],
       description: [item1, item3],
-      price: [item2, item3],
+      unit_price: [item2, item3],
       merchant_id: [item1, item2],
       created_at: [item1, item3],
       updated_at: [item1, item3]
@@ -41,7 +41,7 @@ class ItemRepositoryTest < Minitest::Test
       id: item1,
       name: item1,
       description: item1,
-      price: item2,
+      unit_price: item2,
       merchant_id: item1,
       created_at: item1,
       updated_at: item1
@@ -52,21 +52,21 @@ class ItemRepositoryTest < Minitest::Test
     item1_data = { id: "1",
              name: "soap",
              description: "minty fresh",
-             price: "150",
+             unit_price: "150",
              merchant_id: "1",
              created_at: "2012-03-27 14:53:59 utc",
              updated_at: "2012-03-27 14:53:59 utc" }
     item2_data = { id: "2",
              name: "Toothpaste",
              description: "Not actually minty",
-             price: "300",
+             unit_price: "300",
              merchant_id: "1",
              created_at: "2012-03-28 14:53:59 utc",
              updated_at: "2012-03-28 14:53:59 utc" }
     item3_data = { id: "3",
              name: "Toothpaste",
              description: "minty fresh",
-             price: "300",
+             unit_price: "300",
              merchant_id: "2",
              created_at: "2012-03-27 14:53:59 utc",
              updated_at: "2012-03-27 14:53:59 utc" }
@@ -104,13 +104,13 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_any_attribute
-    [:id, :name, :description, :price, :merchant_id, :created_at, :updated_at].each do |attribute|
+    [:id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at].each do |attribute|
       assert_equal expected_find_by_values[attribute], repository.send("find_by_#{attribute}", search_terms[attribute])
     end
   end
 
   def test_it_can_find_all_by_any_attribute
-    [:id, :name, :description, :price, :merchant_id, :created_at, :updated_at].each do |attribute|
+    [:id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at].each do |attribute|
       assert_equal expected_find_by_all_values[attribute], repository.send("find_all_by_#{attribute}", search_terms[attribute])
     end
   end

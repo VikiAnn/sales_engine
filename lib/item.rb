@@ -2,7 +2,7 @@ class Item
   attr_reader :id,
               :name,
               :description,
-              :price,
+              :unit_price,
               :merchant_id,
               :created_at,
               :updated_at,
@@ -13,7 +13,7 @@ class Item
     @id          = data[:id]
     @name        = data[:name]
     @description = data[:description]
-    @price       = data[:price]
+    @unit_price  = data[:unit_price]
     @merchant_id = data[:merchant_id]
     @created_at  = data[:created_at]
     @updated_at  = data[:updated_at]
@@ -23,7 +23,7 @@ class Item
     [:id,
      :name,
      :description,
-     :price,
+     :unit_price,
      :merchant_id,
      :created_at,
      :updated_at]
