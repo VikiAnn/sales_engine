@@ -10,6 +10,7 @@ class MerchantParser
 
   def create_merchant_objects(repository, merchant_data)
     @merchants = merchant_data.collect do |merchant_data|
+      merchant_data[:id] = merchant_data[:id].to_i
       Merchant.new(repository, merchant_data)
     end
   end

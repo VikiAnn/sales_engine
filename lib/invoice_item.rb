@@ -19,16 +19,6 @@ class InvoiceItem
     @updated_at = data[:updated_at]
   end
 
-  def attributes
-    [:id,
-     :item_id,
-     :invoice_id,
-     :quantity,
-     :unit_price,
-     :created_at,
-     :updated_at]
-  end
-
   def item
     repository.find_item(item_id)
   end

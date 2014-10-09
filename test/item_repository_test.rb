@@ -21,7 +21,7 @@ class ItemRepositoryTest < Minitest::Test
       id: "1",
       name: "soap",
       description: "minty fresh",
-      unit_price: "300",
+      unit_price: "3.00",
       merchant_id: "1",
       created_at: "2012-03-27 14:53:59 utc",
       updated_at: "2012-03-27 14:53:59 utc"
@@ -88,11 +88,11 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_can_return_empty
-    assert_nil repository.find_by_price("50")
+    assert_nil repository.find_by_unit_price("50")
   end
 
   def test_find_by_all_can_return_empty
-    assert_equal [], repository.find_all_by_price("50")
+    assert_equal [], repository.find_all_by_unit_price("50")
   end
 
   def test_it_can_return_all_items

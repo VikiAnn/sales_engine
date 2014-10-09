@@ -19,10 +19,6 @@ class Transaction
     @updated_at                   = data[:updated_at]
   end
 
-  def attributes
-    [:id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at]
-  end
-
   def invoice
     repository.find_invoice(invoice_id)
   end

@@ -13,13 +13,6 @@ class Merchant
     @updated_at  = data[:updated_at]
   end
 
-  def attributes
-    [:id,
-     :name,
-     :created_at,
-     :updated_at]
-  end
-
   def items
     repository.find_items_from(id)
   end

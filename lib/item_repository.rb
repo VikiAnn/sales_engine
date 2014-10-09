@@ -18,10 +18,11 @@ class ItemRepository
   end
 
   def find_by_unit_price(price)
-    items.find { |item| BigDecimal.new(item.unit_price) == (BigDecimal.new(price) * 100)  }
+    items.find { |item| BigDecimal.new(item.unit_price) == (BigDecimal.new(price)*100)  }
   end
 
-  def find_all_by_unit_price
+  def find_all_by_unit_price(price)
+    items.select { |item| BigDecimal.new(item.unit_price) == (BigDecimal.new(price)*100) }
   end
 
   def all
