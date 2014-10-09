@@ -1,16 +1,22 @@
-require_relative 'find'
-
 class ItemRepository
-  include Find
-
   attr_reader :items,
               :engine
 
   def initialize(engine, items = [])
     @engine = engine
     @items  = items
-    Find.find_by_generator(items)
-    Find.find_all_by_generator(items)
+  end
+
+  [:id, :name, :description, :price, :merchant_id, :created_at, :updated_at].each do |attribute|
+    define_method("find_by_#{attribute}") do |attribute_value|
+      items.find { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
+    end
+  end
+
+  [:id, :name, :description, :price, :merchant_id, :created_at, :updated_at].each do |attribute|
+    define_method("find_all_by_#{attribute}") do |attribute_value|
+      items.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
+    end
   end
 
   def all

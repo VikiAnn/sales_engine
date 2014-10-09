@@ -1,7 +1,4 @@
-require_relative 'find'
-
 class MerchantRepository
-  include Find
 
   attr_reader :merchants,
               :engine
@@ -9,8 +6,19 @@ class MerchantRepository
   def initialize(engine, merchants = [])
     @engine    = engine
     @merchants = merchants
-    Find.find_by_generator(merchants)
-    Find.find_all_by_generator(merchants)
+  end
+
+
+  [:id, :name, :created_at, :updated_at].each do |attribute|
+      define_method("find_by_#{attribute}") do |attribute_value|
+        merchants.find { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
+      end
+    end
+
+  [:id, :name, :created_at, :updated_at].each do |attribute|
+    define_method("find_all_by_#{attribute}") do |attribute_value|
+      merchants.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
+    end
   end
 
   def all

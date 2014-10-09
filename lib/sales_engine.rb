@@ -51,4 +51,8 @@ class SalesEngine
     @transactions  = TransactionParser.new(transaction_repository, "#{filepath}/transactions.csv").transactions
   end
 
+  def find_items_from_merchant(id)
+    item_repository.find_all_by_merchant_id(id)
+  end
+
 end
