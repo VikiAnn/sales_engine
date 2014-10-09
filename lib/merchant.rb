@@ -21,7 +21,7 @@ class Merchant
     repository.find_invoices_from(id)
   end
 
-  def total_revenue
+  def revenue
     totals = invoices.map {|invoice| invoice.total}
     totals.empty? ? 0 : totals.reduce(:+)
   end
