@@ -132,6 +132,7 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_business_intelligence_for_merchant_repository_revenue_date
-
+    assert_equal 553980, engine.merchant_repository.revenue(Date.new(2012, 3, 8))
+    assert_equal 13176, engine.merchant_repository.revenue(Date.new(2012, 3, 7))
   end
 end
