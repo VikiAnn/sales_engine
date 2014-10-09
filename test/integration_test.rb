@@ -48,11 +48,56 @@ class IntegrationTest < Minitest::Test
     invoice = engine.invoice_repository.find_by_id("1")
     customer = invoice.customer
     assert_instance_of Customer, customer
+    assert_equal "1", customer.id
   end
 
   def test_invoice_to_merchant_relationship
     invoice = engine.invoice_repository.find_by_id("1")
     merchant = invoice.merchant
     assert_instance_of Merchant, merchant
+    assert_equal "26", merchant.id
+  end
+
+  def test_invoice_item_to_invoice_relationship
+    invoice_item = engine.invoice_item_repository.find_by_id("1")
+    invoice = invoice_item.invoice
+    assert_instance_of Invoice, invoice
+    assert_equal "1", invoice.id
+  end
+
+  def test_invoice_item_to_item_relationship
+    invoice_item = engine.invoice_item_repository.find_by_id("1")
+    item = invoice_item.item
+    assert_instance_of Item, item
+    assert_equal "539", item.id
+  end
+
+  def test_item_to_invoice_items_relationship
+    item = engine.item_repository.find_by_id("2")
+    invoice_items = item.invoice_items
+    assert_instance_of InvoiceItem, invoice_items.first
+    assert_equal "2", invoice_items.first.id
+  end
+
+  def test_item_to_merchant_id_relationship
+    item = engine.item_repository.find_by_id("2")
+    merchant = item.merchant
+    assert_instance_of Merchant, merchant
+    assert_equal "1", merchant.id
+  end
+
+  def test_transaction_to_invoice_relationship
+    transaction = engine.transaction_repository.find_by_id("1")
+    invoice = transaction.invoice
+    assert_instance_of Invoice, invoice
+    assert_equal "1", invoice.id
+  end
+
+  def test_customer_to_invoices_relationship
+    customer = engine.customer_repository.find_by_id("1")
+    invoices = customer.invoices
+    assert_equal 7, invoices.count
+    assert_instance_of Invoice, invoices.first
+    assert_equal "1", invoices.first.id
   end
 end

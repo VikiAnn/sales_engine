@@ -122,7 +122,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_delegates_find_merchant_to_engine
-    engine.expect(:find_merchant_by_merchant_id, [], [item1.merchant_id])
+    engine.expect(:find_by_merchant, [], [item1.merchant_id])
     repository.find_merchant(item1.merchant_id)
     engine.verify
   end
