@@ -19,6 +19,10 @@ class InvoiceItem
     @updated_at = data[:updated_at]
   end
 
+  def revenue
+    quantity * unit_price
+  end
+
   def item
     repository.find_item(item_id)
   end

@@ -146,4 +146,17 @@ class IntegrationTest < Minitest::Test
     unpaid_customers = merchant.customers_with_pending_invoices
     assert_equal 2, unpaid_customers.first.id
   end
+
+  def test_item_can_calculate_total_revenue
+    items = engine.item_repository
+    item = items.find_by_id(529)
+    assert_equal 1661940, item.total_revenue
+  end
+
+  def test_BI_can_find_items_with_most_revenue
+    items = engine.item_repository
+    item1 = items.find_by_id(529)
+    item2 = items.find_by_id(523)
+    assert_equal [item1, item2], items.most_revenue(2)
+  end
 end

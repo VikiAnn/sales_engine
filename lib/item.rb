@@ -19,6 +19,12 @@ class Item
     @updated_at  = data[:updated_at]
   end
 
+  def total_revenue
+    invoice_items.reduce(0) do |sum, invoice_item|
+      sum + invoice_item.revenue
+    end
+  end
+
   def invoice_items
     repository.find_invoice_items(id)
   end

@@ -29,6 +29,11 @@ class ItemRepository
     items
   end
 
+  def most_revenue(number_of_results)
+    items_by_revenue = items.sort_by { |item| -item.total_revenue }
+    items_by_revenue[0..(number_of_results-1)]
+  end
+
   def random
     items.sample
   end
