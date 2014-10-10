@@ -32,4 +32,8 @@ class Item
   def merchant
     repository.find_merchant(merchant_id)
   end
+
+  def total_sold
+    invoice_items.reduce(0) {|total, invoice_item| total + invoice_item.quantity }
+  end
 end
