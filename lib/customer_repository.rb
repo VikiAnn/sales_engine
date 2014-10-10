@@ -16,12 +16,6 @@ class CustomerRepository
       customers.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
     end
   end
-  
-  # [:id, :first_name, :last_name, :created_at, :updated_at].each do |attribute|
-  #   define_method("find_all_by_#{attribute}") do |attribute_value|
-  #     customers.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
-  #   end
-  # end
 
   def all
     customers

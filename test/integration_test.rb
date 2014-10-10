@@ -19,7 +19,7 @@ class IntegrationTest < Minitest::Test
   def test_merchant_to_invoices_relationship
     merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
     merchant_invoices = merchant.invoices
-    assert_equal 2, merchant_invoices.count
+    assert_equal 3, merchant_invoices.count
     assert_instance_of Invoice, merchant_invoices.first
   end
 
@@ -96,7 +96,7 @@ class IntegrationTest < Minitest::Test
   def test_customer_to_invoices_relationship
     customer = engine.customer_repository.find_by_id("1")
     invoices = customer.invoices
-    assert_equal 7, invoices.count
+    assert_equal 4, invoices.count
     assert_instance_of Invoice, invoices.first
     assert_equal 1, invoices.first.id
   end
@@ -134,5 +134,10 @@ class IntegrationTest < Minitest::Test
   def test_business_intelligence_for_merchant_repository_revenue_date
     assert_equal 553980, engine.merchant_repository.revenue(Date.new(2012, 3, 8))
     assert_equal 13176, engine.merchant_repository.revenue(Date.new(2012, 3, 7))
+  end
+
+  def test_BI_for_merchant_favorite_customer
+    merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
+    assert_equal "Joey", merchant.favorite_customer.first_name
   end
 end

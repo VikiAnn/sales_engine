@@ -21,6 +21,10 @@ class Invoice
     repository.find_transactions(id)
   end
 
+  def paid?
+    transactions.count {|transaction| transaction.result == "success"} > 0
+  end
+
   def invoice_items
     repository.find_invoice_items(id)
   end

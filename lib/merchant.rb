@@ -22,6 +22,16 @@ class Merchant
     repository.find_invoices_from(id)
   end
 
+  def customers_with_pending_invoices
+    paying_customers = invoices.map {|invoice| invoice.customer unless invoice.paid?}
+    paying_customers.group_by(customer)
+  end
+
+  def favorite_customer
+    paying_customers = invoices.map {|invoice| invoice.customer if invoice.paid?}
+    paying_customers.group_by{|customer| customer}.max_by{|k,v| v.length}.first
+  end
+
   def revenue(date="total")
     if date == "total"
       totals = invoices.map {|invoice| invoice.total}
