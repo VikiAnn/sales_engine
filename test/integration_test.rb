@@ -172,4 +172,10 @@ class IntegrationTest < Minitest::Test
     item2 = items.find_by_id(535)
     assert_equal [item1, item2], items.most_items(2)
   end
+
+  def test_BI_item_can_find_its_best_sales_day
+    items = engine.item_repository
+    item1 = items.find_by_id(529)
+    assert_equal "2012-03-25 14:54:09 UTC", item1.best_day
+  end
 end

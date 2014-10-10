@@ -33,6 +33,10 @@ class Item
     repository.find_merchant(merchant_id)
   end
 
+  def best_day
+    invoice_items.max_by{|invoice_item| invoice_item.quantity }.created_at
+  end
+
   def total_sold
     invoice_items.reduce(0) {|total, invoice_item| total + invoice_item.quantity }
   end
