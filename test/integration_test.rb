@@ -140,4 +140,10 @@ class IntegrationTest < Minitest::Test
     merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
     assert_equal "Joey", merchant.favorite_customer.first_name
   end
+
+  def test_BI_for_merchant_customers_with_pending_invoices
+    merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
+    unpaid_customers = merchant.customers_with_pending_invoices
+    assert_equal 2, unpaid_customers.first.id
+  end
 end

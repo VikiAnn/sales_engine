@@ -23,8 +23,7 @@ class Merchant
   end
 
   def customers_with_pending_invoices
-    paying_customers = invoices.map {|invoice| invoice.customer unless invoice.paid?}
-    paying_customers.group_by(customer)
+    invoices.reject {|invoice| invoice.paid? }.map {|invoice| invoice.customer}
   end
 
   def favorite_customer
