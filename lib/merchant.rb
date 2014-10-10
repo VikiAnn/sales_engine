@@ -27,8 +27,9 @@ class Merchant
   end
 
   def favorite_customer
-    paying_customers = invoices.map {|invoice| invoice.customer if invoice.paid?}
-    paying_customers.group_by{|customer| customer}.max_by{|k,v| v.length}.first
+    paid_invoices = invoices.select {|invoice| invoice.paid? }
+    paying_customers = paid_invoices.map {|invoice| invoice.customer}
+    paying_customers.group_by{|customer| customer}.max_by{|k,v| v.count}.first
   end
 
   def revenue(date="total")
