@@ -178,4 +178,11 @@ class IntegrationTest < Minitest::Test
     item1 = items.find_by_id(529)
     assert_equal "2012-03-25 14:54:09 UTC", item1.best_day
   end
+
+  def test_BI_customer_can_find_all_its_transactions
+    joey = engine.customer_repository.find_by_id(1)
+
+    assert_equal 6, joey.transactions.count
+    assert_instance_of Transaction, joey.transactions.first
+  end
 end

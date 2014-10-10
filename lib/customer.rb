@@ -18,4 +18,8 @@ class Customer
   def invoices
     repository.find_invoices(id)
   end
+
+  def transactions
+    invoices.collect { |invoice| invoice.transactions }.flatten
+  end
 end
