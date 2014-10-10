@@ -21,6 +21,10 @@ class Invoice
     repository.find_transactions(id)
   end
 
+  def paid?
+    transactions.count {|transaction| transaction.result == "success"} > 0
+  end
+
   def invoice_items
     repository.find_invoice_items(id)
   end
@@ -35,5 +39,12 @@ class Invoice
 
   def customer
     repository.find_by_customer(customer_id)
+  end
+
+  def total
+    totals = invoice_items.map do |invoice_item|
+      invoice_item.unit_price.to_i * invoice_item.quantity.to_i
+    end
+    totals.empty? ? 0 : totals.reduce(:+)
   end
 end

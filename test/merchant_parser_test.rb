@@ -14,7 +14,7 @@ class MerchantParserTest < Minitest::Test
   end
 
   def test_it_returns_correct_number_of_merchants
-    assert_equal 5, merchant_parser.merchants.count
+    assert_equal 6, merchant_parser.merchants.count
   end
 
   def test_merchants_are_valid_merchant_objects

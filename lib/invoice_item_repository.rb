@@ -1,6 +1,7 @@
 class InvoiceItemRepository
-  attr_reader :invoice_items,
-  :engine
+  attr_reader   :engine,
+                :invoice_items
+
 
   def initialize(engine, invoice_items = [])
     @engine        = engine
@@ -16,7 +17,7 @@ class InvoiceItemRepository
       invoice_items.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
     end
   end
-  
+
   def all
     invoice_items
   end

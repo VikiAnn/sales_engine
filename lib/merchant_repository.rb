@@ -27,6 +27,21 @@ class MerchantRepository
     merchants.sample
   end
 
+# returns the total revenue for that date across all merchants
+  def revenue(date)
+    merchants.map{|merchant| merchant.revenue(date)}.reduce(:+)
+  end
+
+  def most_revenue(number_of_results)
+    top = merchants.sort_by {|merchant| merchant.revenue }.reverse
+    top[0..number_of_results-1]
+  end
+
+  def most_items(number_of_results)
+    top = merchants.sort_by {|merchant| merchant.total_items_sold }.reverse
+    top[0..number_of_results-1]
+  end
+
   def find_items_from(id)
     engine.find_items_from_merchant(id)
   end
