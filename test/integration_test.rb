@@ -115,7 +115,7 @@ class IntegrationTest < Minitest::Test
 
   def test_merchant_total_items_sold
     merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
-    assert_equal 9, merchant.total_items_sold
+    assert_equal 58, merchant.total_items_sold
   end
 
   def test_business_intelligence_for_merchant_repository_most_items_x
@@ -145,5 +145,31 @@ class IntegrationTest < Minitest::Test
     merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
     unpaid_customers = merchant.customers_with_pending_invoices
     assert_equal 2, unpaid_customers.first.id
+  end
+
+  def test_item_can_calculate_total_revenue
+    items = engine.item_repository
+    item = items.find_by_id(529)
+    assert_equal 1661940, item.total_revenue
+  end
+
+  def test_BI_can_find_items_with_most_revenue
+    items = engine.item_repository
+    item1 = items.find_by_id(529)
+    item2 = items.find_by_id(523)
+    assert_equal [item1, item2], items.most_revenue(2)
+  end
+
+  def test_item_can_calculate_the_number_of_times_it_has_been_sold
+    items = engine.item_repository
+    item1 = items.find_by_id(529)
+    assert_equal 21, item1.total_sold
+  end
+
+  def test_BI_can_find_most_items_sold_from_item_repository
+    items = engine.item_repository
+    item1 = items.find_by_id(529)
+    item2 = items.find_by_id(535)
+    assert_equal [item1, item2], items.most_items(2)
   end
 end

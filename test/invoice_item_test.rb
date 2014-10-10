@@ -17,6 +17,10 @@ class InvoiceItemTest < Minitest::Test
     @invoice_item = InvoiceItem.new(repository, data)
   end
 
+  # def test_it_can_calculate_revenue
+  #   assert
+  # end
+
   def test_it_has_a_repository
     assert invoice_item.repository
   end
