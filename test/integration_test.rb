@@ -185,4 +185,9 @@ class IntegrationTest < Minitest::Test
     assert_equal 6, joey.transactions.count
     assert_instance_of Transaction, joey.transactions.first
   end
+
+  def test_BI_for_customer_favorite_merchant
+    customer = engine.customer_repository.find_by_first_name("Joey")
+    assert_equal "Schroeder-Jerde", customer.favorite_merchant.name
+  end
 end
