@@ -5,7 +5,7 @@
 
   1. Have each repository class setup with listing/searching features in place, and all relationships established.
 
-  2. (insert project completion goals for second check-in here)
+  2. Have spec harness completely passing. 
 
 # Check-in Rubrics
 
