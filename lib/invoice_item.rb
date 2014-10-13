@@ -30,4 +30,6 @@ class InvoiceItem
   def invoice
     repository.find_invoice(invoice_id)
   end
+
+  
 end

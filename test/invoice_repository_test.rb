@@ -132,4 +132,58 @@ class InvoiceRepositoryTest < Minitest::Test
     repository.find_by_merchant(invoice1.merchant_id)
     engine.verify
   end
+
+  def test_it_can_create_an_invoice
+    customer_data = { id: "1",
+                      first_name: "billy",
+                      last_name: "joe",
+                      created_at: "2012-03-27 14:53:59 utc",
+                      updated_at: "2012-03-27 14:53:59 utc" }
+    customer_repository = CustomerRepository.new(engine)
+    customer = Customer.new(customer_repository, customer_data)
+
+    merchant_data = { id:         "1",
+                      name:       "joe bob incorporated",
+                      created_at: "2012-03-27 14:53:59 utc",
+                      updated_at: "2012-03-27 14:53:59 utc" }
+    merchant_repository = MerchantRepository.new(engine)
+    merchant = Merchant.new(merchant_repository, merchant_data)
+
+    item1_data = { id: "1",
+                   name: "soap",
+                   description: "minty fresh",
+                   unit_price: "150",
+                   merchant_id: "1",
+                   created_at: "2012-03-27 14:53:59 utc",
+                   updated_at: "2012-03-27 14:53:59 utc" }
+    item2_data = { id: "2",
+                   name: "Toothpaste",
+                   description: "Not actually minty",
+                   unit_price: "300",
+                   merchant_id: "1",
+                   created_at: "2012-03-28 14:53:59 utc",
+                   updated_at: "2012-03-28 14:53:59 utc" }
+    item3_data = { id: "3",
+                   name: "Toothpaste",
+                   description: "minty fresh",
+                   unit_price: "300",
+                   merchant_id: "2",
+                   created_at: "2012-03-27 14:53:59 utc",
+                   updated_at: "2012-03-27 14:53:59 utc" }
+
+    item_repository = ItemRepository.new(engine)
+    item1 = Item.new(item_repository, item1_data)
+    item2 = Item.new(item_repository, item2_data)
+    item3 = Item.new(item_repository, item3_data)
+
+    engine.expect(:create_invoice_items, [], [4, [item1, item2, item3]])
+
+    invoice = repository.create(customer: customer, merchant: merchant, status: "shipped",
+                                items: [item1, item2, item3])
+    engine.verify
+    assert_instance_of Invoice, invoice
+    assert_equal 1, invoice.customer_id
+    assert_equal 1, invoice.merchant_id
+    assert_equal 4, invoice.id
+  end
 end

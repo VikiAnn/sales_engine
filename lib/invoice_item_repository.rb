@@ -37,4 +37,18 @@ class InvoiceItemRepository
   def inspect
     "#<#{self.class} #{invoice_items.size} rows>"
   end
+
+  def create_invoice_items(invoice_id, items)
+    grouped_items = items.group_by { |item| item.id }
+    grouped_items.collect do |item_id, items |
+      data = { id: invoice_items.last.id.to_i + 1,
+               item_id: item_id,
+               quantity: items.count,
+               invoice_id: invoice_id,
+               unit_price: items.first.unit_price,
+               created_at: Time.now,
+               updated_at: Time.now }
+      invoice_items << InvoiceItem.new(self, data)
+    end
+  end
 end
