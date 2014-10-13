@@ -20,7 +20,7 @@ class Item
   end
 
   def total_revenue
-    invoice_items.reduce(0) do |sum, invoice_item|
+    items_sold.reduce(0) do |sum, invoice_item|
       sum + invoice_item.revenue
     end
   end
@@ -34,10 +34,15 @@ class Item
   end
 
   def best_day
-    invoice_items.max_by{|invoice_item| invoice_item.quantity }.created_at
+    best_day = items_sold.max_by{|invoice_item| invoice_item.quantity }.created_at
+    Date.parse(best_day)
   end
 
   def total_sold
-    invoice_items.reduce(0) {|total, invoice_item| total + invoice_item.quantity }
+    items_sold.reduce(0) {|total, invoice_item| total + invoice_item.quantity }
+  end
+
+  def items_sold
+    invoice_items.select {|invoice_item| invoice_item.invoice.paid?}
   end
 end

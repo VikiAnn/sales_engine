@@ -103,7 +103,7 @@ class IntegrationTest < Minitest::Test
 
   def test_merchant_total_revenue
     merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
-    assert_equal 560568, merchant.revenue
+    assert_equal BigDecimal.new(560568)/100, merchant.revenue
   end
 
   def test_business_intelligence_for_merchant_repository_most_revenue_x
@@ -127,13 +127,13 @@ class IntegrationTest < Minitest::Test
 
   def test_merchant_total_revenue_by_date
     merchant = engine.merchant_repository.find_by_name("Schroeder-Jerde")
-    assert_equal 553980, merchant.revenue(Date.new(2012, 3, 8))
-    assert_equal 6588, merchant.revenue(Date.new(2012, 3, 7))
+    assert_equal BigDecimal.new(553980)/100, merchant.revenue(Date.new(2012, 3, 8))
+    assert_equal BigDecimal.new(6588)/100, merchant.revenue(Date.new(2012, 3, 7))
   end
 
   def test_business_intelligence_for_merchant_repository_revenue_date
-    assert_equal 553980, engine.merchant_repository.revenue(Date.new(2012, 3, 8))
-    assert_equal 13176, engine.merchant_repository.revenue(Date.new(2012, 3, 7))
+    assert_equal BigDecimal.new(553980)/100, engine.merchant_repository.revenue(Date.new(2012, 3, 8))
+    assert_equal BigDecimal.new(13176)/100, engine.merchant_repository.revenue(Date.new(2012, 3, 7))
   end
 
   def test_BI_for_merchant_favorite_customer
@@ -176,7 +176,7 @@ class IntegrationTest < Minitest::Test
   def test_BI_item_can_find_its_best_sales_day
     items = engine.item_repository
     item1 = items.find_by_id(529)
-    assert_equal "2012-03-25 14:54:09 UTC", item1.best_day
+    assert_equal Date.parse("2012-03-25 14:54:09 UTC"), item1.best_day
   end
 
   def test_BI_customer_can_find_all_its_transactions

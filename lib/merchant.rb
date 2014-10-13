@@ -27,19 +27,22 @@ class Merchant
   end
 
   def favorite_customer
-    paid_invoices = invoices.select { |invoice| invoice.paid? }
     paying_customers = paid_invoices.map { |invoice| invoice.customer }
     paying_customers.group_by{ |customer| customer }.max_by{ |k,v| v.count }.first
   end
 
-  def revenue(date="total")
-    if date == "total"
-      totals = invoices.map { |invoice| invoice.total }
-    else
-      daily_invoices = invoices.select { |invoice| Time.parse(invoice.created_at).to_date == date }
+  def paid_invoices
+    invoices.select { |invoice| invoice.paid? }
+  end
+
+  def revenue(date=nil)
+    if date
+      daily_invoices = paid_invoices.select { |invoice| Time.parse(invoice.created_at).to_date == date }
       totals = daily_invoices.map { |invoice| invoice.total }
+    else
+      totals = paid_invoices.map { |invoice| invoice.total }
     end
-    totals.empty? ? 0 : totals.reduce(:+)
+    totals.empty? ? 0 : BigDecimal.new(totals.reduce(:+)) / 100
   end
 
   def total_items_sold

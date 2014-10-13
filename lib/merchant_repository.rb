@@ -27,7 +27,6 @@ class MerchantRepository
     merchants.sample
   end
 
-# returns the total revenue for that date across all merchants
   def revenue(date)
     merchants.map{|merchant| merchant.revenue(date)}.reduce(:+)
   end
