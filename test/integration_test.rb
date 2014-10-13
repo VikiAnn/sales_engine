@@ -190,4 +190,20 @@ class IntegrationTest < Minitest::Test
     customer = engine.customer_repository.find_by_first_name("Joey")
     assert_equal "Schroeder-Jerde", customer.favorite_merchant.name
   end
+
+  def test_BI_for_creating_an_invoice
+    customer = engine.customer_repository.find_by_id(1)
+    merchant = engine.merchant_repository.find_by_id(1)
+    item1 = engine.item_repository.find_by_id(1)
+    item2 = engine.item_repository.find_by_id(2)
+    item3 = engine.item_repository.find_by_id(3)
+
+    invoice = engine.invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",
+                                items: [item1, item2, item3])
+    assert_instance_of Invoice, invoice
+    assert_equal 1, invoice.customer_id
+    assert_equal 1, invoice.merchant_id
+    assert_equal 9, invoice.id
+    assert_equal 3, invoice.invoice_items.count
+  end
 end
