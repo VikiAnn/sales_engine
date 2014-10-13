@@ -20,7 +20,7 @@ class InvoiceItem
   end
 
   def revenue
-    quantity * unit_price
+    invoice.paid? ? (quantity * unit_price) : 0
   end
 
   def item

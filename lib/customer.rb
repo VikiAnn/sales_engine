@@ -25,7 +25,7 @@ class Customer
 
   def favorite_merchant
     paid_invoices = invoices.select { |invoice| invoice.paid? }
-    merchants = paid_invoices.map { |invoice| invoice.merchant }
-    merchants.group_by{ |merchant| merchant }.max_by{ |k,v| v.count }.first
+    paying_merchants = paid_invoices.map { |invoice| invoice.merchant }
+    paying_merchants.group_by{ |merchant| merchant }.max_by{ |k,v| v.count }.first
   end
 end
