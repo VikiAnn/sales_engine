@@ -29,6 +29,17 @@ class TransactionRepository
     engine.find_invoice_by_invoice_id(invoice_id)
   end
 
+  def create_transaction(invoice_id, credit_card_number, credit_card_expiration_date, result)
+    id = transactions.last.id
+    Transaction.new(self, id: id,
+                    invoice_id: invoice_id,
+                    credit_card_number: credit_card_number,
+                    credit_card_expiration_date: credit_card_expiration_date,
+                    result: result,
+                    created_at: Time.now,
+                    updated_at: Time.now )
+  end
+
   def inspect
     "#<#{self.class} #{transactions.size} rows>"
   end

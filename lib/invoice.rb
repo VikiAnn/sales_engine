@@ -47,4 +47,8 @@ class Invoice
     end
     totals.empty? ? 0 : totals.reduce(:+)
   end
+
+  def charge(credit_card_number:, credit_card_expiration_date:, result: "success")
+    repository.charge(id, credit_card_number, credit_card_expiration_date, result)
+  end
 end

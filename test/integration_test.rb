@@ -206,4 +206,12 @@ class IntegrationTest < Minitest::Test
     assert_equal 9, invoice.id
     assert_equal 3, invoice.invoice_items.count
   end
+
+  def test_BI_for_charging_an_invoice
+    credit_card_number = "4444333322221111"
+    credit_card_expiration_date = "10/13"
+    result = "success"
+    invoice_id = engine.invoice_repository.find_by_id(1).id
+    engine.create_transaction(invoice_id, credit_card_number, credit_card_expiration_date, result)
+  end
 end
