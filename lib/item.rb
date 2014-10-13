@@ -33,9 +33,19 @@ class Item
     repository.find_merchant(merchant_id)
   end
 
+  def invoice_items_by_date
+    invoice_items.group_by {|invoice_item| invoice_item.invoice.created_at }
+  end
+
   def best_day
-    best_day = items_sold.max_by{|invoice_item| invoice_item.quantity }.created_at
-    Date.parse(best_day)
+    dates_by_quantity = Hash.new
+    invoice_items_by_date.each do |date, invoice_items|
+      dates_by_quantity[date] = invoice_items.reduce(0) { |sum, ii| sum + ii.quantity }
+    end
+
+    best_day = h.max_by{ |date, quantity| quantity }
+
+    Date.parse(best_day[0])
   end
 
   def total_sold
