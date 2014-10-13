@@ -6,6 +6,7 @@ class InvoiceRepositoryTest < Minitest::Test
               :invoice1,
               :invoice2,
               :invoice3,
+              :invoice4,
               :expected_find_by_all_values,
               :expected_find_by_values,
               :search_terms,
@@ -185,5 +186,11 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1, invoice.customer_id
     assert_equal 1, invoice.merchant_id
     assert_equal 4, invoice.id
+  end
+
+  def test_it_can_charge_an_invoice
+    engine.expect(:create_transaction, [], [1, "4444333322221111", "10/13", "success"])
+    repository.charge(1, "4444333322221111", "10/13", "success")
+    engine.verify
   end
 end

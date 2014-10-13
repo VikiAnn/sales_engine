@@ -51,7 +51,7 @@ class InvoiceRepository
     "#<#{self.class} #{invoices.size} rows>"
   end
 
-  def create(customer:, merchant:, status:, items:)
+  def create(customer:, merchant:, status: "success", items:)
     data = { id: invoices.last.id.to_i + 1, customer_id: customer.id.to_i, merchant_id: merchant.id.to_i, status: status, created_at: Time.now, updated_at: Time.now }
     invoice = Invoice.new(self, data)
     engine.create_invoice_items(invoice.id, items)
@@ -59,18 +59,7 @@ class InvoiceRepository
     invoice
   end
 
-  # def create_invoice_items(invoice_id, items)
-  #   grouped_items = items.group_by { |item| item.id }
-  #   item_ids = grouped_items.keys
-  #   invoice_items = grouped_items.collect do |item_id, items |
-  #     data = { id: invoice_item_repository.invoice_items.last.id.to_i + 1,
-  #              item_id: item_id,
-  #              quantity: items.count,
-  #              invoice_id: invoice_id,
-  #              unit_price: items.first.unit_price,
-  #              created_at: Time.now,
-  #              updated_at: Time.now }
-  #     InvoiceItem.new(invoice_item_repository, data)
-  #   end
-  # end
+  def charge(id, credit_card_number, credit_card_expiration_date, result)
+    engine.create_transaction(id, credit_card_number, credit_card_expiration_date, result)
+  end
 end

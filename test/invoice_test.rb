@@ -72,4 +72,11 @@ class InvoiceTest < Minitest::Test
     invoice.customer
     repository.verify
   end
+
+  def test_it_delegates_charging_an_invoice_to_its_repository
+    repository.expect(:charge, [], ["1", "4444333322221111", "10/13", "success"])
+    invoice.charge(credit_card_number: "4444333322221111",
+               credit_card_expiration_date: "10/13", result: "success")
+    repository.verify
+  end
 end
