@@ -59,7 +59,7 @@ class InvoiceRepository
     invoice
   end
 
-  def charge(credit_card_number:, credit_card_expiration_date:, result:)
-    engine.create_transaction(credit_card_number, credit_card_expiration_date, result)
+  def charge(id, credit_card_number, credit_card_expiration_date, result)
+    engine.create_transaction(id, credit_card_number, credit_card_expiration_date, result)
   end
 end

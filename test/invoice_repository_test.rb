@@ -189,9 +189,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_charge_an_invoice
-    engine.expect(:create_transaction, [], ["4444333322221111", "10/13", "success"])
-    repository.charge(credit_card_number: "4444333322221111",
-               credit_card_expiration_date: "10/13", result: "success")
+    engine.expect(:create_transaction, [], [1, "4444333322221111", "10/13", "success"])
+    repository.charge(1, "4444333322221111", "10/13", "success")
     engine.verify
   end
 end

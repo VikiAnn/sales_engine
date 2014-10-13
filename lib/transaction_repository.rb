@@ -31,13 +31,16 @@ class TransactionRepository
 
   def create_transaction(invoice_id, credit_card_number, credit_card_expiration_date, result)
     id = transactions.last.id
-    Transaction.new(self, id: id,
-                    invoice_id: invoice_id,
-                    credit_card_number: credit_card_number,
-                    credit_card_expiration_date: credit_card_expiration_date,
-                    result: result,
-                    created_at: Time.now,
-                    updated_at: Time.now )
+    data = { id: id,
+             invoice_id: invoice_id,
+             credit_card_number: credit_card_number,
+             credit_card_expiration_date: credit_card_expiration_date,
+             result: result,
+             created_at: Time.now,
+             updated_at: Time.now }
+    transaction = Transaction.new(self, data)
+    transactions << transaction
+    transaction
   end
 
   def inspect
