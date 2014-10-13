@@ -43,7 +43,7 @@ class Item
       dates_by_quantity[date] = invoice_items.reduce(0) { |sum, ii| sum + ii.quantity }
     end
 
-    best_day = h.max_by{ |date, quantity| quantity }
+    best_day = dates_by_quantity.max_by{ |date, quantity| quantity }
 
     Date.parse(best_day[0])
   end
