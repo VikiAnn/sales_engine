@@ -18,34 +18,37 @@ class Invoice
   end
 
   def transactions
-    repository.find_transactions(id)
+    @transactions ||= repository.find_transactions(id)
+  end
+
+  def refresh_transactions
+    @transactions = repository.find_transactions(id)
   end
 
   def paid?
-    transactions.count {|transaction| transaction.result == "success"} > 0
+    @paid ||= transactions.count {|transaction| transaction.result == "success"} > 0
   end
 
   def invoice_items
-    repository.find_invoice_items(id)
+    @invoice_items ||= repository.find_invoice_items(id)
   end
 
   def items
-    repository.find_items_by_invoice_items(id)
+    @items ||= repository.find_items_by_invoice_items(id)
   end
 
   def merchant
-    repository.find_by_merchant(merchant_id)
+    @merchant ||= repository.find_by_merchant(merchant_id)
   end
 
   def customer
-    repository.find_by_customer(customer_id)
+    @customer ||= repository.find_by_customer(customer_id)
   end
 
   def total
-    totals = invoice_items.map do |invoice_item|
-      invoice_item.unit_price.to_i * invoice_item.quantity.to_i
+    @total ||= invoice_items.reduce(0) do |total, invoice_item|
+      total + (invoice_item.unit_price.to_i * invoice_item.quantity.to_i)
     end
-    totals.empty? ? 0 : totals.reduce(:+)
   end
 
   def charge(params)
@@ -55,5 +58,6 @@ class Invoice
       result: params[:result] || "success"
     }
     repository.charge(id, transaction_data)
+    refresh_transactions
   end
 end

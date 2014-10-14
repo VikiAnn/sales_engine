@@ -16,11 +16,11 @@ class Customer
   end
 
   def invoices
-    repository.find_invoices(id)
+    @invoices ||= repository.find_invoices(id)
   end
 
   def transactions
-    invoices.collect { |invoice| invoice.transactions }.flatten
+    @transactions ||= invoices.collect { |invoice| invoice.transactions }.flatten
   end
 
   def favorite_merchant
@@ -32,7 +32,7 @@ class Customer
   end
 
   def merchants
-    paid_invoices.map { |invoice| invoice.merchant }
+    @merchants ||= paid_invoices.map { |invoice| invoice.merchant }
   end
 
   def paid_invoices
