@@ -8,13 +8,21 @@ class InvoiceItemRepository
     @invoice_items = invoice_items
   end
 
+  def load(filepath)
+    @invoice_items = InvoiceItemParser.new(self, "#{filepath}/invoice_items.csv").invoice_items
+  end
+
   [:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
-      invoice_items.find { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
+      invoice_items.find do |object|
+        object.send(attribute).to_s.downcase == attribute_value.to_s.downcase
+      end
     end
 
     define_method("find_all_by_#{attribute}") do |attribute_value|
-      invoice_items.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
+      invoice_items.select do |object|
+        object.send(attribute).to_s.downcase == attribute_value.to_s.downcase
+      end
     end
   end
 

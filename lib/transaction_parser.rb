@@ -5,8 +5,8 @@ class TransactionParser
   attr_reader :transactions
 
   def initialize(repository, filepath)
-    transaction_data = CSV.readlines filepath, headers: true, header_converters: :symbol
-    create_transaction_objects(repository, transaction_data)
+    data = CSV.readlines filepath, headers: true, header_converters: :symbol
+    create_transaction_objects(repository, data)
   end
 
   def create_transaction_objects(repository, transaction_data)

@@ -7,6 +7,10 @@ class TransactionRepository
     @transactions = transactions
   end
 
+  def load(filepath)
+    @transactions = TransactionParser.new(self, "#{filepath}/transactions.csv").transactions
+  end
+
   [:id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
       transactions.find { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
