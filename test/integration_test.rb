@@ -215,12 +215,11 @@ class IntegrationTest < Minitest::Test
     assert_equal 10, engine.transaction_repository.transactions.count
     invoice = engine.invoice_repository.find_by_id(1)
     invoice_id = invoice.id
-    transaction = invoice.charge(
-                  credit_card_number: "4444333322221111",
-                  credit_card_expiration_date: "10/13",
-                  result: "success")
+    invoice.charge(credit_card_number: "4444333322221111",
+                   credit_card_expiration_date: "10/13",
+                   result: "success")
 
-    assert_instance_of Transaction, transaction
+    assert invoice.paid?
     assert_equal 11, engine.transaction_repository.transactions.count
   end
 end

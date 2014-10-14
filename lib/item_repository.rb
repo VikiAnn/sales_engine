@@ -8,7 +8,7 @@ class ItemRepository
   end
 
   def load(filepath)
-    @items = ItemParser.new(self, "#{filepath}/items.csv").items
+    @items = ItemParser.new(self, filepath).items
   end
 
   [:id, :name, :description, :merchant_id, :created_at, :updated_at].each do |attribute|
@@ -57,5 +57,4 @@ class ItemRepository
   def inspect
     "#<#{self.class} #{items.size} rows>"
   end
-
 end

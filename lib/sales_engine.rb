@@ -33,11 +33,11 @@ class SalesEngine
 
   def startup
     merchant_repository.load("#{filepath}/merchants.csv")
-    invoice_repository.load(filepath)
-    item_repository.load(filepath)
-    invoice_item_repository.load(filepath)
-    customer_repository.load(filepath)
-    transaction_repository.load(filepath)
+    invoice_repository.load("#{filepath}/invoices.csv")
+    item_repository.load("#{filepath}/items.csv")
+    invoice_item_repository.load("#{filepath}/invoice_items.csv")
+    customer_repository.load("#{filepath}/customers.csv")
+    transaction_repository.load("#{filepath}/transactions.csv")
   end
 
   def find_items_from_merchant(id)

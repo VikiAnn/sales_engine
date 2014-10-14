@@ -7,7 +7,7 @@ class CustomerRepository
   end
 
   def load(filepath)
-    @customers = CustomerParser.new(self, "#{filepath}/customers.csv").customers
+    @customers = CustomerParser.new(self, filepath).customers
   end
 
   [:id, :first_name, :last_name, :created_at, :updated_at].each do |attribute|

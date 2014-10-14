@@ -1,5 +1,4 @@
 class MerchantRepository
-
   attr_reader :merchants,
               :engine
 

@@ -8,7 +8,7 @@ class InvoiceItemRepository
   end
 
   def load(filepath)
-    @invoice_items = InvoiceItemParser.new(self, "#{filepath}/invoice_items.csv").invoice_items
+    @invoice_items = InvoiceItemParser.new(self, filepath).invoice_items
   end
 
   [:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at].each do |attribute|
