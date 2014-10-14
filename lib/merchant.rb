@@ -15,11 +15,11 @@ class Merchant
   end
 
   def items
-    repository.find_items_from(id)
+    @items ||= repository.find_items_from(id)
   end
 
   def invoices
-    repository.find_invoices_from(id)
+    @invoices ||= repository.find_invoices_from(id)
   end
 
   def customers_with_pending_invoices
@@ -35,7 +35,7 @@ class Merchant
   end
 
   def paid_invoices
-    invoices.select { |invoice| invoice.paid? }
+    @paid_invoices ||= invoices.select { |invoice| invoice.paid? }
   end
 
   def revenue(date=nil)

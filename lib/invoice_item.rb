@@ -24,10 +24,10 @@ class InvoiceItem
   end
 
   def item
-    repository.find_item(item_id)
+    @item ||= repository.find_item(item_id)
   end
 
   def invoice
-    repository.find_invoice(invoice_id)
+    @invoice ||= repository.find_invoice(invoice_id)
   end
 end
