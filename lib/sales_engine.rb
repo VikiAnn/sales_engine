@@ -32,7 +32,7 @@ class SalesEngine
   end
 
   def startup
-    merchant_repository.load(filepath)
+    merchant_repository.load("#{filepath}/merchants.csv")
     invoice_repository.load(filepath)
     item_repository.load(filepath)
     invoice_item_repository.load(filepath)

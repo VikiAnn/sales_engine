@@ -67,6 +67,10 @@ class InvoiceRepository
              created_at: Time.now,
              updated_at: Time.now }
     invoice = Invoice.new(self, data)
+    create_invoice_items(invoice, items)
+  end
+
+  def create_invoice_items(invoice, items)
     engine.create_invoice_items(invoice.id, items)
     invoices << invoice
     invoice

@@ -9,7 +9,7 @@ class MerchantRepository
   end
 
   def load(filepath)
-    @merchants = MerchantParser.new(self, "#{filepath}/merchants.csv").merchants
+    @merchants = MerchantParser.new(self, filepath).merchants
   end
 
   [:id, :name, :created_at, :updated_at].each do |attribute|
