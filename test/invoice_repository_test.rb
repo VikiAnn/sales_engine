@@ -189,8 +189,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_charge_an_invoice
-    engine.expect(:create_transaction, [], [1, "4444333322221111", "10/13", "success"])
-    repository.charge(1, "4444333322221111", "10/13", "success")
+    engine.expect(:create_transaction, [], [1, {}])
+    repository.charge(1, {})
     engine.verify
   end
 end

@@ -33,13 +33,13 @@ class TransactionRepository
     engine.find_invoice_by_invoice_id(invoice_id)
   end
 
-  def create_transaction(invoice_id, credit_card_number, credit_card_expiration_date, result)
+  def create_transaction(invoice_id, transaction_data)
     id = transactions.last.id
     data = { id: id,
              invoice_id: invoice_id,
-             credit_card_number: credit_card_number,
-             credit_card_expiration_date: credit_card_expiration_date,
-             result: result,
+             credit_card_number: transaction_data[:credit_card_number],
+             credit_card_expiration_date: transaction_data[:cc_expiration_date],
+             result: transaction_data[:result],
              created_at: Time.now,
              updated_at: Time.now }
     transaction = Transaction.new(self, data)
