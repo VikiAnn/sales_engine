@@ -24,8 +24,11 @@ class Customer
   end
 
   def favorite_merchant
-    favorites = merchants.group_by{ |merchant| merchant }
-    favorites.max_by{ |merchant, merchants| merchants.count }.first
+    favorite_merchants.max_by{ |merchant, merchants| merchants.count }.first
+  end
+
+  def favorite_merchants
+    merchants.group_by{ |merchant| merchant }
   end
 
   def merchants
