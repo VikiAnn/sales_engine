@@ -20,17 +20,17 @@ class Item
   end
 
   def total_revenue
-    items_sold.reduce(0) do |sum, invoice_item|
+    @total_revenue ||= items_sold.reduce(0) do |sum, invoice_item|
       sum + invoice_item.revenue
     end
   end
 
   def invoice_items
-    repository.find_invoice_items(id)
+    @invoice_items ||= repository.find_invoice_items(id)
   end
 
   def merchant
-    repository.find_merchant(merchant_id)
+    @merchant ||= repository.find_merchant(merchant_id)
   end
 
   def invoice_items_by_date
@@ -53,6 +53,6 @@ class Item
   end
 
   def items_sold
-    invoice_items.select {|invoice_item| invoice_item.invoice.paid?}
+    @items_sold ||= invoice_items.select {|invoice_item| invoice_item.invoice.paid?}
   end
 end
