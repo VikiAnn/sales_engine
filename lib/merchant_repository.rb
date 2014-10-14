@@ -8,6 +8,9 @@ class MerchantRepository
     @merchants = merchants
   end
 
+  def load(filepath)
+    @merchants = MerchantParser.new(self, "#{filepath}/merchants.csv").merchants
+  end
 
   [:id, :name, :created_at, :updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
