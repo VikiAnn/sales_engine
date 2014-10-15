@@ -44,7 +44,17 @@ class Merchant
   end
 
   def revenue(date=nil)
-    date ? total = total_from_daily(date) : total = total_paid
+    if date
+      if date.is_a?(Date)
+        total = total_from_daily(date)
+      else
+        dates = date.to_a
+        revenues = dates.map { |date| total_from_daily(date) }
+        total = revenues.inject(0) { |sum, daily_rev| sum + daily_rev }
+      end
+    else
+      total = total_paid
+    end
     BigDecimal.new(total) / 100
   end
 
