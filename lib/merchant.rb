@@ -24,11 +24,15 @@ class Merchant
   end
 
   def customers_with_pending_invoices
-    invoices.reject { |invoice| invoice.paid? }.map { |invoice| invoice.customer }
+    unpaid_invoices = invoices.reject { |invoice| invoice.paid? }
+    unpaid_invoices.map { |invoice| invoice.customer }
   end
 
   def favorite_customer
-    paying_customers.group_by{ |customer| customer }.max_by{ |k,v| v.count }.first
+    grouped_customers = paying_customers.group_by{ |customer| customer }
+    grouped_customers.max_by do |customer, customer_visits|
+      customer_visits.count
+    end.first
   end
 
   def paying_customers
@@ -53,7 +57,9 @@ class Merchant
   end
 
   def daily_invoices(date)
-    paid_invoices.select { |invoice| Time.parse(invoice.created_at).to_date == date }
+    paid_invoices.select do |invoice|
+      Time.parse(invoice.created_at).to_date == date
+    end
   end
 
   def total_items_sold

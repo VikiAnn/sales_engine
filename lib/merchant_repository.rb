@@ -1,4 +1,9 @@
 class MerchantRepository
+  MERCHANT_ATTRIBUTES = [ :id,
+                          :name,
+                          :created_at,
+                          :updated_at ]
+
   attr_reader :merchants,
               :engine
 
@@ -11,7 +16,7 @@ class MerchantRepository
     @merchants = MerchantParser.new(self, filepath).merchants
   end
 
-  [:id, :name, :created_at, :updated_at].each do |attribute|
+  MERCHANT_ATTRIBUTES.each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
       attribute_value = attribute_value.to_s.downcase
       merchants.find do |object|

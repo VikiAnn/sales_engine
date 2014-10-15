@@ -1,4 +1,11 @@
 class ItemRepository
+  ITEM_ATTRIBUTES = [ :id,
+                      :name,
+                      :description,
+                      :merchant_id,
+                      :created_at,
+                      :updated_at ]
+
   attr_reader :items,
               :engine
 
@@ -11,7 +18,7 @@ class ItemRepository
     @items = ItemParser.new(self, filepath).items
   end
 
-  [:id, :name, :description, :merchant_id, :created_at, :updated_at].each do |attribute|
+  ITEM_ATTRIBUTES.each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
       attribute_value = attribute_value.to_s.downcase
       items.find do |object|
@@ -28,11 +35,15 @@ class ItemRepository
   end
 
   def find_by_unit_price(price)
-    items.find { |item| BigDecimal.new(item.unit_price) == (BigDecimal.new(price)*100)  }
+    items.find do |item|
+      BigDecimal.new(item.unit_price) == (BigDecimal.new(price)*100)
+    end
   end
 
   def find_all_by_unit_price(price)
-    items.select { |item| BigDecimal.new(item.unit_price) == (BigDecimal.new(price)*100) }
+    items.select do |item|
+      BigDecimal.new(item.unit_price) == (BigDecimal.new(price)*100)
+    end
   end
 
   def all

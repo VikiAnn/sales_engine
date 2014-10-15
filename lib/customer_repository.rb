@@ -1,4 +1,10 @@
 class CustomerRepository
+  CUSTOMER_ATTRIBUTES = [ :id,
+                          :first_name,
+                          :last_name,
+                          :created_at,
+                          :updated_at ]
+                          
   attr_reader :engine, :customers
 
   def initialize(engine, customers = [])
@@ -10,7 +16,7 @@ class CustomerRepository
     @customers = CustomerParser.new(self, filepath).customers
   end
 
-  [:id, :first_name, :last_name, :created_at, :updated_at].each do |attribute|
+  CUSTOMER_ATTRIBUTES.each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
       attribute_value = attribute_value.to_s.downcase
       customers.find do |object|

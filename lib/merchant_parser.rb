@@ -3,7 +3,7 @@ require_relative 'merchant'
 
 class MerchantParser
   attr_reader :merchants
-  
+
   def initialize(repository, filepath)
     data = CSV.readlines filepath, headers: true, header_converters: :symbol
     create_merchant_objects(repository, data)

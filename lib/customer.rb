@@ -20,7 +20,9 @@ class Customer
   end
 
   def transactions
-    @transactions ||= invoices.collect { |invoice| invoice.transactions }.flatten
+    @transactions ||= invoices.collect do |invoice|
+      invoice.transactions
+    end.flatten
   end
 
   def favorite_merchant
