@@ -26,7 +26,7 @@ class Invoice
   end
 
   def paid?
-    @paid ||= transactions.count do |transaction|
+    transactions.count do |transaction|
       transaction.result == "success"
     end > 0
   end
@@ -50,6 +50,12 @@ class Invoice
   def total
     @total ||= invoice_items.reduce(0) do |total, invoice_item|
       total + (invoice_item.unit_price.to_i * invoice_item.quantity.to_i)
+    end
+  end
+
+  def total_quantity
+    @total_quantity ||= invoice_items.reduce(0) do |total, invoice_item|
+      total + invoice_item.quantity
     end
   end
 

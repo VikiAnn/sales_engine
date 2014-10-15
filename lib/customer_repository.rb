@@ -4,7 +4,7 @@ class CustomerRepository
                           :last_name,
                           :created_at,
                           :updated_at ]
-                          
+
   attr_reader :engine, :customers
 
   def initialize(engine, customers = [])
@@ -42,6 +42,14 @@ class CustomerRepository
 
   def find_invoices(customer_id)
     engine.find_all_invoices_by_customer_id(customer_id)
+  end
+
+  def most_items
+    customers.max_by(&:total_items_purchased)
+  end
+
+  def most_revenue
+    customers.max_by(&:total_revenue)
   end
 
   def inspect
