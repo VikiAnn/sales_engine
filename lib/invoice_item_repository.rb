@@ -6,7 +6,7 @@ class InvoiceItemRepository
                               :unit_price,
                               :created_at,
                               :updated_at ]
-                              
+
   attr_reader   :engine,
                 :invoice_items
 
