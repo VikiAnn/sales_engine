@@ -40,4 +40,20 @@ class Customer
   def paid_invoices
     invoices.select { |invoice| invoice.paid? }
   end
+
+  def days_since_activity
+    Date.parse(transactions.last.created_at) - Date.today
+  end
+
+  def pending_invoices
+    invoices.reject { |invoice| invoice.paid? }
+  end
+
+  def total_items_purchased
+    paid_invoices.reduce(0) { |total, invoice| total + invoice.total_quantity }
+  end
+
+  def total_revenue
+    paid_invoices.reduce(0) { |total, invoice| total + invoice.total }
+  end
 end
