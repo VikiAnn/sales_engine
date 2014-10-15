@@ -40,17 +40,23 @@ class Item
   def best_day
     dates_by_quantity = Hash.new
     invoice_items_by_date.each do |date, invoice_items|
-      dates_by_quantity[date] = invoice_items.reduce(0) { |sum, ii| sum + ii.quantity }
+      dates_by_quantity[date] = invoice_items.reduce(0) do |sum, ii|
+        sum + ii.quantity
+      end
     end
-    best_day = dates_by_quantity.max_by{ |date, quantity| quantity }
+    best_day = dates_by_quantity.max_by { |date, quantity| quantity }
     Date.parse(best_day[0])
   end
 
   def total_sold
-    items_sold.reduce(0) {|total, invoice_item| total + invoice_item.quantity }
+    items_sold.reduce(0) do |total, invoice_item|
+      total + invoice_item.quantity
+    end
   end
 
   def items_sold
-    @items_sold ||= invoice_items.select {|invoice_item| invoice_item.invoice.paid?}
+    @items_sold ||= invoice_items.select do |invoice_item|
+      invoice_item.invoice.paid?
+    end
   end
 end

@@ -1,6 +1,11 @@
-require_relative 'invoice'
-
 class InvoiceRepository
+  INVOICE_REPOSITORY = [ :id,
+                         :customer_id,
+                         :merchant_id,
+                         :status,
+                         :created_at,
+                         :updated_at ]
+                         
   attr_reader :engine,
               :invoices
 
@@ -13,7 +18,7 @@ class InvoiceRepository
     @invoices = InvoiceParser.new(self, filepath).invoices
   end
 
-  [:id, :customer_id, :merchant_id, :status, :created_at, :updated_at].each do |attribute|
+  INVOICE_REPOSITORY.each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
       attribute_value = attribute_value.to_s.downcase
       invoices.find do |object|

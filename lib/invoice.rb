@@ -26,7 +26,9 @@ class Invoice
   end
 
   def paid?
-    @paid ||= transactions.count {|transaction| transaction.result == "success"} > 0
+    @paid ||= transactions.count do |transaction|
+      transaction.result == "success"
+    end > 0
   end
 
   def invoice_items

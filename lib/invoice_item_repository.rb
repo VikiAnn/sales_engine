@@ -1,4 +1,12 @@
 class InvoiceItemRepository
+  INVOICE_ITEM_ATTRIBUTES = [ :id,
+                              :item_id,
+                              :invoice_id,
+                              :quantity,
+                              :unit_price,
+                              :created_at,
+                              :updated_at ]
+                              
   attr_reader   :engine,
                 :invoice_items
 
@@ -11,7 +19,7 @@ class InvoiceItemRepository
     @invoice_items = InvoiceItemParser.new(self, filepath).invoice_items
   end
 
-  [:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at].each do |attribute|
+  INVOICE_ITEM_ATTRIBUTES.each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
       attribute_value = attribute_value.to_s.downcase
       invoice_items.find do |object|
