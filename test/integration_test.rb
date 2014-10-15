@@ -132,10 +132,10 @@ class IntegrationTest < Minitest::Test
   end
 
   def test_BI_extension_for_merchant_total_revenue_by_range_of_dates
-    date1 = Date.parse("2012-03-14")
-    date2 = Date.parse("2012-03-16")
+    date1 = Date.parse("2012-03-07")
+    date2 = Date.parse("2012-03-25")
     revenue = engine.merchant_repository.revenue(date1..date2)
-    assert_equal BigDecimal("8226179.74"), revenue
+    assert_equal BigDecimal("22585.43"), revenue
   end
 
   def test_business_intelligence_for_merchant_repository_revenue_date

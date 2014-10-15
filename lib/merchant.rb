@@ -48,14 +48,17 @@ class Merchant
       if date.is_a?(Date)
         total = total_from_daily(date)
       else
-        dates = date.to_a
-        revenues = dates.map { |date| total_from_daily(date) }
-        total = revenues.inject(0) { |sum, daily_rev| sum + daily_rev }
+        total = total_from_range(date)
       end
     else
       total = total_paid
     end
     BigDecimal.new(total) / 100
+  end
+
+  def total_from_range(dates)
+    revenues = dates.to_a.map { |date| total_from_daily(date) }
+    revenues.inject(0) { |sum, daily_rev| sum + daily_rev }
   end
 
   def total_from_daily(date)
