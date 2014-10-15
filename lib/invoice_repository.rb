@@ -5,7 +5,7 @@ class InvoiceRepository
                          :status,
                          :created_at,
                          :updated_at ]
-                         
+
   attr_reader :engine,
               :invoices
 
@@ -85,6 +85,34 @@ class InvoiceRepository
 
   def charge(id, transaction_data)
     engine.create_transaction(id, transaction_data)
+  end
+
+  def pending
+    invoices.reject(&:paid?)
+  end
+
+  def average_revenue(date=nil)
+    (find_average(:total, date)/100).round(2)
+  end
+
+  def average_items(date=nil)
+    find_average(:total_quantity, date).round(2)
+  end
+
+  def find_average(attribute, date)
+    invoices = date ? invoices_by(date) : paid_invoices
+    total = invoices.reduce(0) do |total, invoice|
+      total + invoice.send(attribute)
+    end
+    BigDecimal(total) / invoices.count
+  end
+
+  def invoices_by(date)
+    paid_invoices.select{|invoice| date == Date.parse(invoice.created_at)}
+  end
+
+  def paid_invoices
+    invoices.select(&:paid?)
   end
 
   def inspect
