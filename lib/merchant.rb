@@ -23,6 +23,12 @@ class Merchant
     @invoices ||= repository.find_invoices_from(id)
   end
 
+  def invoice_dates
+    invoices.collect do |invoice|
+      Date.parse(invoice.created_at)
+    end
+  end
+
   def customers_with_pending_invoices
     unpaid_invoices = invoices.reject { |invoice| invoice.paid? }
     unpaid_invoices.map { |invoice| invoice.customer }

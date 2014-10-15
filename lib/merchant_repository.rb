@@ -44,14 +44,31 @@ class MerchantRepository
     merchants.map{|merchant| merchant.revenue(date)}.reduce(:+)
   end
 
+  def merchants_by_revenue
+    merchants.sort_by {|merchant| -merchant.revenue }
+  end
+
+  def merchants_by_items_sold
+    merchants.sort_by {|merchant| -merchant.total_items_sold }
+  end
+
   def most_revenue(number_of_results)
-    top = merchants.sort_by {|merchant| -merchant.revenue }
-    top[0..number_of_results-1]
+    merchants_by_revenue[0..number_of_results-1]
+  end
+
+  def dates_by_revenue(number=nil)
+    # require 'pry'; binding.pry
+    number ? sorted_dates[0..number-1] : sorted_dates
+  end
+
+  def sorted_dates
+    invoice_dates = merchants.collect(&:invoice_dates).flatten!
+    dates = invoice_dates.group_by { |date| date }.keys
+    dates.sort_by { |date| -revenue(date) }
   end
 
   def most_items(number_of_results)
-    top = merchants.sort_by {|merchant| -merchant.total_items_sold }
-    top[0..number_of_results-1]
+    merchants_by_items_sold[0..number_of_results-1]
   end
 
   def find_items_from(id)
