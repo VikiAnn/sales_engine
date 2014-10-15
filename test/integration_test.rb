@@ -138,6 +138,20 @@ class IntegrationTest < Minitest::Test
     assert_equal BigDecimal("22585.43"), revenue
   end
 
+  def test_BI_extension_for_merchant_find_dates_by_revenue
+      dates_by_revenue = engine.merchant_repository.dates_by_revenue
+      assert_instance_of Date, dates_by_revenue[0]
+      assert_equal Date.parse("2012-03-25"), dates_by_revenue[0]
+      assert_equal Date.parse("2012-03-12"), dates_by_revenue[3]
+      refute_includes(dates_by_revenue, Date.parse("2014-03-25"))
+  end
+
+  def test_BI_extension_for_merchant_find_top_x_dates_by_revenue
+    dates_by_revenue = engine.merchant_repository.dates_by_revenue(3)
+    assert_equal Date.parse("2012-03-25"), dates_by_revenue[0]
+    refute_includes(dates_by_revenue, Date.parse("2012-03-12"))
+  end
+
   def test_business_intelligence_for_merchant_repository_revenue_date
     assert_equal BigDecimal.new(553980)/100, engine.merchant_repository.revenue(Date.new(2012, 3, 8))
     assert_equal BigDecimal.new(13176)/100, engine.merchant_repository.revenue(Date.new(2012, 3, 7))
