@@ -8,16 +8,22 @@ class ItemRepository
   end
 
   def load(filepath)
-    @items = ItemParser.new(self, "#{filepath}/items.csv").items
+    @items = ItemParser.new(self, filepath).items
   end
 
   [:id, :name, :description, :merchant_id, :created_at, :updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
-      items.find { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
+      attribute_value = attribute_value.to_s.downcase
+      items.find do |object|
+        object.send(attribute).to_s.downcase == attribute_value
+      end
     end
 
     define_method("find_all_by_#{attribute}") do |attribute_value|
-      items.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
+      attribute_value = attribute_value.to_s.downcase
+      items.select do |object|
+        object.send(attribute).to_s.downcase == attribute_value
+      end
     end
   end
 
@@ -57,5 +63,4 @@ class ItemRepository
   def inspect
     "#<#{self.class} #{items.size} rows>"
   end
-
 end

@@ -1,4 +1,5 @@
 require 'date'
+
 class Merchant
   attr_reader :id,
               :name,
@@ -39,12 +40,16 @@ class Merchant
   end
 
   def revenue(date=nil)
-    if date
-      total = daily_invoices(date).reduce(0) { |total, invoice| total + invoice.total }
-    else
-      total = paid_invoices.reduce(0) { |total, invoice| total + invoice.total }
-    end
+    date ? total = total_from_daily(date) : total = total_paid
     BigDecimal.new(total) / 100
+  end
+
+  def total_from_daily(date)
+    daily_invoices(date).reduce(0) { |total, invoice| total + invoice.total }
+  end
+
+  def total_paid
+    paid_invoices.reduce(0) { |total, invoice| total + invoice.total }
   end
 
   def daily_invoices(date)

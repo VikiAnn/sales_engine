@@ -2,26 +2,27 @@ class InvoiceItemRepository
   attr_reader   :engine,
                 :invoice_items
 
-
   def initialize(engine, invoice_items = [])
     @engine        = engine
     @invoice_items = invoice_items
   end
 
   def load(filepath)
-    @invoice_items = InvoiceItemParser.new(self, "#{filepath}/invoice_items.csv").invoice_items
+    @invoice_items = InvoiceItemParser.new(self, filepath).invoice_items
   end
 
   [:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
+      attribute_value = attribute_value.to_s.downcase
       invoice_items.find do |object|
-        object.send(attribute).to_s.downcase == attribute_value.to_s.downcase
+        object.send(attribute).to_s.downcase == attribute_value
       end
     end
 
     define_method("find_all_by_#{attribute}") do |attribute_value|
+      attribute_value = attribute_value.to_s.downcase
       invoice_items.select do |object|
-        object.send(attribute).to_s.downcase == attribute_value.to_s.downcase
+        object.send(attribute).to_s.downcase == attribute_value
       end
     end
   end
@@ -46,9 +47,12 @@ class InvoiceItemRepository
     "#<#{self.class} #{invoice_items.size} rows>"
   end
 
+  def group(items)
+    items.group_by { |item| item.id }
+  end
+
   def create_invoice_items(invoice_id, items)
-    grouped_items = items.group_by { |item| item.id }
-    grouped_items.collect do |item_id, items |
+    group(items).collect do |item_id, items |
       data = { id: invoice_items.last.id.to_i + 1,
                item_id: item_id,
                quantity: items.count,

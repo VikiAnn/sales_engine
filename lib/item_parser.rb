@@ -4,6 +4,7 @@ require_relative 'item'
 
 class ItemParser
   attr_reader :items
+  
   def initialize(repository, filepath)
     data = CSV.readlines filepath, headers: true, header_converters: :symbol
     create_item_objects(repository, data)
