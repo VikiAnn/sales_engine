@@ -15,14 +15,16 @@ class InvoiceRepository
 
   [:id, :customer_id, :merchant_id, :status, :created_at, :updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
+      attribute_value = attribute_value.to_s.downcase
       invoices.find do |object|
-        object.send(attribute).to_s.downcase == attribute_value.to_s.downcase
+        object.send(attribute).to_s.downcase == attribute_value
       end
     end
 
     define_method("find_all_by_#{attribute}") do |attribute_value|
+      attribute_value = attribute_value.to_s.downcase
       invoices.select do |object|
-        object.send(attribute).to_s.downcase == attribute_value.to_s.downcase
+        object.send(attribute).to_s.downcase == attribute_value
       end
     end
   end
@@ -78,5 +80,9 @@ class InvoiceRepository
 
   def charge(id, transaction_data)
     engine.create_transaction(id, transaction_data)
+  end
+
+  def inspect
+    "#<#{self.class} #{invoices.size} rows>"
   end
 end

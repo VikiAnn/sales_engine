@@ -13,11 +13,17 @@ class MerchantRepository
 
   [:id, :name, :created_at, :updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
-      merchants.find { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
+      attribute_value = attribute_value.to_s.downcase
+      merchants.find do |object|
+        object.send(attribute).to_s.downcase == attribute_value
+      end
     end
 
     define_method("find_all_by_#{attribute}") do |attribute_value|
-      merchants.select { |object| object.send(attribute).to_s.downcase == attribute_value.to_s.downcase }
+      attribute_value = attribute_value.to_s.downcase
+      merchants.select do |object|
+        object.send(attribute).to_s.downcase == attribute_value
+      end
     end
   end
 

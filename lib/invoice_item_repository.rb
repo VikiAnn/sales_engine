@@ -13,14 +13,16 @@ class InvoiceItemRepository
 
   [:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |attribute_value|
+      attribute_value = attribute_value.to_s.downcase
       invoice_items.find do |object|
-        object.send(attribute).to_s.downcase == attribute_value.to_s.downcase
+        object.send(attribute).to_s.downcase == attribute_value
       end
     end
 
     define_method("find_all_by_#{attribute}") do |attribute_value|
+      attribute_value = attribute_value.to_s.downcase
       invoice_items.select do |object|
-        object.send(attribute).to_s.downcase == attribute_value.to_s.downcase
+        object.send(attribute).to_s.downcase == attribute_value
       end
     end
   end
