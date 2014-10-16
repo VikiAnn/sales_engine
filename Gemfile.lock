@@ -65,6 +65,7 @@ DEPENDENCIES
   cane
   guard-minitest
   minitest
+  pry
   rake
   reek
   simplecov

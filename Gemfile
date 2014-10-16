@@ -5,4 +5,8 @@ gem 'reek'
 gem 'rake'
 gem 'minitest'
 gem 'simplecov'
+gem 'pry'
 gem 'guard-minitest'
+group :test do
+  gem 'minitest'
+end
