@@ -126,4 +126,8 @@ class ItemRepositoryTest < Minitest::Test
     repository.find_merchant(item1.merchant_id)
     engine.verify
   end
+
+  def test_inspect_method
+    assert_includes(repository.inspect, "3")
+  end
 end

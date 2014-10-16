@@ -193,4 +193,8 @@ class InvoiceRepositoryTest < Minitest::Test
     repository.charge(1, {})
     engine.verify
   end
+
+  def test_inspect_method
+    assert_includes(repository.inspect, "3")
+  end
 end

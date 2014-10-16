@@ -212,6 +212,26 @@ class IntegrationTest < Minitest::Test
     assert_equal "Schroeder-Jerde", customer.favorite_merchant.name
   end
 
+  def test_BI_extension_customer_repository_most_items
+    customer = engine.customer_repository.find_by_first_name("Joey")
+    assert_equal customer, engine.customer_repository.most_items
+  end
+
+  def test_BI_extension_most_revenue
+    customer = engine.customer_repository.find_by_first_name("Joey")
+    assert_equal customer, engine.customer_repository.most_revenue
+  end
+
+  def test_BI_extension_customer_days_since_activity
+    customer = engine.customer_repository.find_by_first_name("Joey")
+    assert_equal -933, customer.days_since_activity
+  end
+
+  def test_BI_extension_customer_pending_invoices
+    customer = engine.customer_repository.find_by_id(2)
+    assert_equal 2, customer.pending_invoices.count
+  end
+
   def test_BI_for_creating_an_invoice
     customer = engine.customer_repository.find_by_id(1)
     merchant = engine.merchant_repository.find_by_id(1)
@@ -242,5 +262,28 @@ class IntegrationTest < Minitest::Test
 
     assert invoice.paid?
     assert_equal 11, engine.transaction_repository.transactions.count
+  end
+
+  def test_BI_extension_invoice_repository_pending
+    assert_equal 2, engine.invoice_repository.pending.count
+    refute engine.invoice_repository.pending.first.paid?
+  end
+
+  def test_BI_extension_invoice_repository_average_revenue
+    assert_equal BigDecimal.new("3764.24"), engine.invoice_repository.average_revenue
+  end
+
+  def test_BI_extension_invoice_repository_average_revenue_with_date
+    date = Date.parse("2012-03-08")
+    assert_equal BigDecimal.new("5539.80"), engine.invoice_repository.average_revenue(date)
+  end
+
+  def test_BI_extension_invoice_repository_average_items
+    assert_equal BigDecimal.new("10.17"), engine.invoice_repository.average_items
+  end
+
+  def test_BI_extension_invoice_repository_average_items_with_date
+    date = Date.parse("2012-03-08")
+    assert_equal BigDecimal.new("7"), engine.invoice_repository.average_items(date)
   end
 end
