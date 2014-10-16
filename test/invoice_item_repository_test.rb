@@ -129,4 +129,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
     repository.find_invoice(invoice_item1.invoice_id)
     engine.verify
   end
+  
+  def test_inspect_method
+    assert_includes(repository.inspect, "3")
+  end
 end

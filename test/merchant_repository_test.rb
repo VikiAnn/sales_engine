@@ -110,4 +110,8 @@ class MerchantRepositoryTest < Minitest::Test
       assert_equal expected_find_by_all_values[attribute], repository.send("find_all_by_#{attribute}", search_terms[attribute])
     end
   end
+
+  def test_inspect_method
+    assert_includes(repository.inspect, "3")
+  end
 end

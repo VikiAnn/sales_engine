@@ -62,10 +62,6 @@ class InvoiceRepository
     engine.find_by_merchant(merchant_id)
   end
 
-  def inspect
-    "#<#{self.class} #{invoices.size} rows>"
-  end
-
   def create(customer:, merchant:, status: "success", items:)
     data = { id: invoices.last.id.to_i + 1,
              customer_id: customer.id.to_i,
