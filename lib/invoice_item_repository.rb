@@ -38,11 +38,15 @@ class InvoiceItemRepository
   end
 
   def find_all_by_invoice_id(id)
-    @invoice_items_by_invoice_id ||= invoice_items.group_by do |invoice_item|
-      invoice_item.invoice_id == id
-    end
+    @invoice_items_by_invoice_id ||= invoice_items_grouped_by_invoice_id
     @invoice_items_by_invoice_id[id] ||= invoice_items.select do |invoice_item|
       invoice_item.invoice_id == id
+    end
+  end
+
+  def invoice_items_grouped_by_invoice_id
+    invoice_items.group_by do |invoice_item|
+      invoice_item.invoice_id
     end
   end
 
@@ -80,6 +84,7 @@ class InvoiceItemRepository
                created_at: Time.now,
                updated_at: Time.now }
       invoice_item = InvoiceItem.new(self, data)
+      @invoice_items_by_invoice_id ||= invoice_items_grouped_by_invoice_id
       @invoice_items_by_invoice_id[invoice_item.invoice_id] ||= []
       @invoice_items_by_invoice_id[invoice_item.invoice_id] << invoice_item
       invoice_items << invoice_item

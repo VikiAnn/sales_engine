@@ -11,10 +11,10 @@ class InvoiceItemParser
 
   def create_invoice_item_objects(repository)
     @invoice_items = []
+    @invoice_items_by_invoice_id = {}
     csv_options = { headers: true,
                     header_converters: :symbol,
                     converters: :all }
-    @invoice_items_by_invoice_id = {}
 
     CSV.foreach(@filepath, csv_options) do |row|
       add_invoice_item(InvoiceItem.new(repository, row))
