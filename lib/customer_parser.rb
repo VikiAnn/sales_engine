@@ -5,14 +5,18 @@ class CustomerParser
   attr_reader :customers
 
   def initialize(repository, filepath)
-    data = CSV.readlines filepath, headers: true, header_converters: :symbol
-    create_customer_objects(repository, data)
+    @filepath = filepath
+    create_customer_objects(repository)
   end
 
-  def create_customer_objects(repository, customer_data)
-    @customers = customer_data.collect do |customer_data|
-      customer_data[:id] = customer_data[:id].to_i
-      Customer.new(repository, customer_data)
+  def create_customer_objects(repository)
+    @customers = []
+    csv_options = { headers: true,
+                    header_converters: :symbol,
+                    converters: :numeric }
+
+    CSV.foreach(@filepath, csv_options) do |row|
+      @customers << Customer.new(repository, row)
     end
   end
 end

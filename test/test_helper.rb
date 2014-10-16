@@ -1,4 +1,5 @@
-gem 'minitest'
+require 'bundler/setup'
+Bundler.require(:default, :test)
 require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'

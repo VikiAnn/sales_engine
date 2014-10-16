@@ -6,15 +6,19 @@ class ItemParser
   attr_reader :items
 
   def initialize(repository, filepath)
-    data = CSV.readlines filepath, headers: true, header_converters: :symbol
-    create_item_objects(repository, data)
+    @filepath = filepath
+    create_item_objects(repository)
   end
 
-  def create_item_objects(repository, item_data)
-    @items = item_data.collect do |item_data|
-      item_data[:id] = item_data[:id].to_i
-      item_data[:unit_price] = BigDecimal.new(item_data[:unit_price].to_s)
-      Item.new(repository, item_data)
+  def create_item_objects(repository)
+    @items = []
+    csv_options = { headers: true,
+                    header_converters: :symbol,
+                    converters: :numeric }
+
+    CSV.foreach(@filepath, csv_options) do |row|
+      row[:unit_price] = BigDecimal.new(row[:unit_price].to_s)
+      @items << Item.new(repository, row)
     end
   end
 end
