@@ -57,7 +57,6 @@ class MerchantRepository
   end
 
   def dates_by_revenue(number=nil)
-    # require 'pry'; binding.pry
     number ? sorted_dates[0..number-1] : sorted_dates
   end
 
