@@ -5,14 +5,18 @@ class TransactionParser
   attr_reader :transactions
 
   def initialize(repository, filepath)
-    data = CSV.readlines filepath, headers: true, header_converters: :symbol
-    create_transaction_objects(repository, data)
+    @filepath = filepath
+    create_transaction_objects(repository)
   end
 
-  def create_transaction_objects(repository, transaction_data)
-    @transactions = transaction_data.collect do |transaction_data|
-      transaction_data[:id] = transaction_data[:id].to_i
-      Transaction.new(repository, transaction_data)
+  def create_transaction_objects(repository)
+    @transactions = []
+    csv_options = { headers: true,
+                    header_converters: :symbol,
+                    converters: :numeric }
+
+    CSV.foreach(@filepath, csv_options) do |row|
+      @transactions << Transaction.new(repository, row)
     end
   end
 end
