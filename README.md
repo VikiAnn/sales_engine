@@ -1,26 +1,13 @@
-[![Stories in Ready](https://badge.waffle.io/dglunz/sales_engine.png?label=ready&title=Ready)](https://waffle.io/dglunz/sales_engine)
 # Sales Engine
 
-### Check-in Goals
+### [Project Expectations](http://tutorials.jumpstartlab.com/projects/sales_engine.html)
 
-  1. Have each repository class setup with listing/searching features in place, and all relationships established.
+For this project we were to build a system of Ruby objects to handle data retrieval and relationships similar to ActiveRecord,
+without using external object relational mappers or databases.
 
-  2. Have spec harness completely passing. 
+## Project Highlights:
 
-# Check-in Rubrics
+* Completed all extensions in addition to base requirements
+* 100% test coverage
+* [Spec harness](https://github.com/turingschool/sales_engine_spec_harness) run time down to 1-2 minutes from 5-7 minutes
 
-### Feature Delivery Rubric
-
-You’ll be graded on each of the criteria below with a score of (1) well below expectations, (2) below expectations, (3) as expected, (4) better than expected.
-
-* Completion: did you deliver what you committed to build?
-
-* Organization: did you use your project management tool to keep the project organized?
-
-* Progress: are you on track to finish the project on time? Will/does the end product realize the vision of the concept?
-
-### Technical Quality Rubric
-
-* Test-Driven Development: (1) disregard for testing, (2) gaps in test usage/coverage/design, (3) adequate testing, (4) exceptional use of testing
-
-* Code Quality: (1) poor factoring and understanding of MVC, (2) some gaps in code quality / application of MVC, (3) solid code quality and pushing logic down the stack, (4) exceptionally well factored code
