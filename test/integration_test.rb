@@ -224,7 +224,9 @@ class IntegrationTest < Minitest::Test
 
   def test_BI_extension_customer_days_since_activity
     customer = engine.customer_repository.find_by_first_name("Joey")
-    assert_equal -933, customer.days_since_activity
+    Timecop.freeze(Time.local(2014, 10, 16)) do
+      assert_equal -933, customer.days_since_activity
+    end
   end
 
   def test_BI_extension_customer_pending_invoices
